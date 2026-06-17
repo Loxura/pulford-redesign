@@ -19,7 +19,7 @@
 - **Risk**: MED (visible palette shifts — the human owner should eyeball the result before the pitch)
 - **Depends on**: 001 (rollback safety); independent of 002–004
 - **Category**: bug (accessibility)
-- **Planned at**: commit `<filled by plan 001 step 5>`, 2026-06-11
+- **Planned at**: commit `748317f`, 2026-06-11
 
 ## Why this matters
 

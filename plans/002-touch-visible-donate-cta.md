@@ -20,7 +20,7 @@
 - **Risk**: LOW
 - **Depends on**: none (001 recommended first for rollback safety)
 - **Category**: bug
-- **Planned at**: commit `<filled by plan 001 step 5>`, 2026-06-11
+- **Planned at**: commit `748317f`, 2026-06-11
 
 ## Why this matters
 

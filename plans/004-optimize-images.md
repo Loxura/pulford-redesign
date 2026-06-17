@@ -19,7 +19,7 @@
 - **Risk**: MED (lossy re-encode of the only local copies — git history from plan 001 is the undo path)
 - **Depends on**: **001 (hard requirement — do not run on an uncommitted tree)**
 - **Category**: perf
-- **Planned at**: commit `<filled by plan 001 step 5>`, 2026-06-11
+- **Planned at**: commit `748317f`, 2026-06-11
 
 ## Why this matters
 

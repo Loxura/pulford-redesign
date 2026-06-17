@@ -19,7 +19,7 @@
 - **Risk**: MED (font files are easy to get subtly wrong — verify weights/axes render)
 - **Depends on**: 001 (git baseline for rollback)
 - **Category**: bug (demo reliability)
-- **Planned at**: commit `<filled by plan 001 step 5>`, 2026-06-11
+- **Planned at**: commit `748317f`, 2026-06-11
 
 ## Why this matters
 

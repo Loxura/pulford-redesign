@@ -18,7 +18,7 @@ stamps are placeholders. Plan 001 creates the repo and back-fills the stamps
 
 | Plan | Title | Priority | Effort | Depends on | Status |
 |------|-------|----------|--------|------------|--------|
-| 001  | Put the redesign under git and document the repo layout | P1 | S | — | TODO |
+| 001  | Put the redesign under git and document the repo layout | P1 | S | — | DONE (commit 748317f; .venv added to .gitignore) |
 | 002  | Make the donate CTA buttons visible on touch devices    | P1 | S | — (001 recommended) | TODO |
 | 003  | Offline-proof the demo (self-host fonts + vendor TipTap) | P1 | M | 001 | TODO |
 | 004  | Shrink the photo payload and lazy-load below-fold images | P2 | M | **001 (hard)** | TODO |
