@@ -21,6 +21,28 @@ serve with `python3 -m http.server` from a mockup directory.
 | `pitch-script.md` | The 10-minute client pitch script. |
 | `plans/` | Implementation plans for agents (see `plans/README.md`). |
 
+## Hosting
+
+The `mockup/` prototype is deployed to GitHub Pages at
+**https://loxura.github.io/pulford-redesign/** (public repo, but every page
+carries `<meta name="robots" content="noindex">` so it's shareable by link
+without being search-indexed).
+
+Pages serves the `gh-pages` branch, whose root is the contents of `mockup/`
+(published via `git subtree`; `_shots/` is excluded by the build, so the
+screenshot record is not exposed). The token in use lacks the `workflow`
+scope, so this is a branch deploy rather than a GitHub Actions workflow.
+
+**To redeploy after editing `mockup/`** (commit to `main` first):
+
+```bash
+git subtree push --prefix=mockup origin gh-pages
+```
+
+`og:image`/`twitter:image` are absolute URLs pointing at the Pages domain; if
+the site ever moves to a custom domain, update those in all pages and the
+`robots` noindex if it should become discoverable.
+
 ## Conventions
 
 - Theme: light/dark ("Daylight/Dusk") via `data-theme` on `<html>`, persisted
