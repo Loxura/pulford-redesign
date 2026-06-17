@@ -9,20 +9,6 @@
 <link rel="stylesheet" href="assets/fonts/fonts.css">
 <link rel="stylesheet" href="assets/style.css">
 
-<!-- TipTap (+ ProseMirror) pinned through esm.sh; the import map dedupes the core so extensions share one instance -->
-<script type="importmap">
-{
-  "imports": {
-    "@tiptap/core": "https://esm.sh/@tiptap/core@2",
-    "@tiptap/pm/": "https://esm.sh/@tiptap/pm@2/",
-    "@tiptap/starter-kit": "https://esm.sh/@tiptap/starter-kit@2?external=@tiptap/core,@tiptap/pm",
-    "@tiptap/extension-link": "https://esm.sh/@tiptap/extension-link@2?external=@tiptap/core,@tiptap/pm",
-    "@tiptap/extension-image": "https://esm.sh/@tiptap/extension-image@2?external=@tiptap/core,@tiptap/pm",
-    "@tiptap/extension-placeholder": "https://esm.sh/@tiptap/extension-placeholder@2?external=@tiptap/core,@tiptap/pm"
-  }
-}
-</script>
-
 <style>
 /* ============================================================
    PULFORD STUDIO — Daylight chrome
@@ -290,7 +276,7 @@ html[data-theme="dark"] .tb-ic .sun{display:none}html[data-theme="dark"] .tb-ic 
           <button class="tt-btn" data-a="link" title="Add link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 13a4 4 0 0 0 6 .5l3-3a4 4 0 1 0-5.6-5.6l-1.6 1.6"/><path d="M15 11a4 4 0 0 0-6-.5l-3 3A4 4 0 1 0 11.6 19l1.5-1.5"/></svg></button>
         </div>
 
-        <p class="tt-note" id="ttNote">Loading the editor… if it doesn't become editable, this page needs an internet connection (TipTap loads from a CDN in this concept build). The formatted draft below still shows exactly how content renders.</p>
+        <p class="tt-note" id="ttNote">Loading the editor… if it doesn't become editable, try reloading (the editor failed to load). The formatted draft below still shows exactly how content renders.</p>
 
         <!-- The article. TipTap takes this over; if the CDN is unreachable it stays here as a styled, read-only fallback. -->
         <div id="editor">
@@ -358,11 +344,7 @@ html[data-theme="dark"] .tb-ic .sun{display:none}html[data-theme="dark"] .tb-ic 
 
 <script src="assets/app.js"></script>
 <script type="module">
-  import { Editor } from '@tiptap/core'
-  import StarterKit from '@tiptap/starter-kit'
-  import Link from '@tiptap/extension-link'
-  import Image from '@tiptap/extension-image'
-  import Placeholder from '@tiptap/extension-placeholder'
+  import { Editor, StarterKit, Link, Image, Placeholder } from './assets/vendor/tiptap.js'
 
   const el = document.querySelector('#editor')
   const initial = el.innerHTML
