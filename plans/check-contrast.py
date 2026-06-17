@@ -38,6 +38,7 @@ PAIRS = [
     ('stat label on marigold',          'spruce', 0.92, 'marigold', 4.5),
     ('promo-kicker on marigold',        'spruce', 0.92, 'marigold', 4.5),
     ('promo-sub on marigold',           'spruce', 0.92, 'marigold', 4.5),
+    ('pdp price-chip label on marigold','spruce', 0.92, 'marigold', 4.5),
 ]
 
 fail = 0
