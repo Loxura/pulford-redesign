@@ -1,0 +1,15 @@
+URL: https://www.pulford.ca/employment/apply
+PAGE: Employment > Apply
+
+=== NOTE ===
+This page returned HTTP 403 Forbidden to automated fetching (it is a job-application
+submission form, likely bot-protected / requires a session).
+
+Based on parallel pages (Volunteer application flow), the apply page is expected to contain:
+- Instructions to download an application form (Word/PDF)
+- A contact-info form
+- File upload fields ("Choose File") for resume + completed application form
+- A note that both documents are required
+
+Content could not be captured verbatim. Recommend confirming the live form fields
+manually during redesign.

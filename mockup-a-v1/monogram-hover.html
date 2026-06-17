@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Door-on-hover — lab — Pulford</title>
+<meta name="description" content="Interaction lab: the opening-door button hover for Pulford.">
+<script>(function(){try{var t=localStorage.getItem('pf-theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400..560&family=Newsreader:ital,opsz,wght@0,6..72,300..500;1,6..72,300..420&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<style>
+/* ===== lab-only styles — nothing here touches the real mockup ===== */
+.lab-head{padding:clamp(40px,7vh,90px) 0 0}
+.lab-note{max-width:60ch;color:var(--fg-soft);margin-top:18px}
+.lab-block{padding:clamp(40px,7vh,90px) 0;border-top:1px solid var(--line)}
+.lab-block h2{font-size:clamp(24px,3vw,38px);letter-spacing:-.03em}
+.lab-cap{color:var(--fg-soft);max-width:58ch;margin-top:14px;font-size:16px}
+.lab-stage{margin-top:34px;display:flex;gap:clamp(20px,4vw,56px);align-items:center;flex-wrap:wrap}
+.lab-stage.dark{background:var(--inv-bg);color:var(--inv-fg);border-radius:8px;padding:clamp(26px,5vw,52px)}
+.lab-tag{font-family:var(--serif);font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+/* ---------- THE DOOR GLYPH ---------- */
+/* a real door: frame (jambs + lintel + threshold), a left-hinged leaf with two
+   glowing panels (cut-outs onto the warm light behind) and a knob. On hover the
+   leaf swings open in 3D and the light floods out. currentColor inherits the
+   button's text colour, so it works on solid / outline / ghost, light + dark. */
+.door-ico{flex:none;overflow:visible}
+.btn .door-ico{width:18px;height:18px;margin-right:-1px}
+.door-ico .light{fill:var(--accent);opacity:.9;transition:opacity .35s ease}
+.door-ico .frame{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.door-ico .slab{fill:currentColor}
+.door-ico .knob{fill:var(--accent)}
+.door-ico .leaf{transform-box:fill-box;transform-origin:left center;
+  transition:transform .6s cubic-bezier(.16,1,.3,1)}
+/* hover target is the button (or the .door-demo wrapper for the big preview) */
+.btn:hover .door-ico .leaf,.btn:focus-visible .door-ico .leaf,
+.door-demo:hover .door-ico .leaf,.door-demo:focus-visible .door-ico .leaf{
+  transform:perspective(70px) rotateY(-58deg)}
+.btn:hover .door-ico .light,.door-demo:hover .door-ico .light{opacity:1}
+
+/* big standalone preview so the door reads clearly */
+.door-demo{display:inline-flex;flex-direction:column;align-items:center;gap:16px;
+  background:none;border:0;cursor:default;color:var(--fg)}
+.lab-stage.dark .door-demo{color:var(--inv-fg)}
+.door-demo .door-ico{width:120px;height:120px}
+.door-demo .cap{font-family:var(--serif);font-size:14px;color:var(--muted)}
+
+@media (prefers-reduced-motion:reduce){
+  .door-ico .leaf{transform:none}
+  .door-ico .light{opacity:1}
+}
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="site-head">
+  <div class="wrap head-inner">
+    <a class="brand" href="index.html" aria-label="Pulford home"><img class="brand-mark" src="assets/art/pf-icon.png" alt=""><span class="brand-name">Pulford</span></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="index.html">Home</a><a href="about.html">About</a><a href="services.html">Services</a><a href="contact.html">Contact</a>
+    </nav>
+    <div class="head-actions">
+      <button class="theme-toggle" aria-label="Switch to dark mode" title="Toggle light / dark">
+        <svg class="sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M19.4 4.6l-1.8 1.8M6.4 17.6l-1.8 1.8"/></svg>
+        <svg class="moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.3 6.3 0 0 0 10.5 10.5z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="lab-head">
+    <span class="eyebrow">Interaction lab · not a real page</span>
+    <h1 class="display" style="margin-top:18px;font-size:clamp(36px,6vw,76px)">The door,<br>on hover.</h1>
+    <p class="lab-note">A real little door: frame, two glowing panels, a knob. At rest it's a closed door with warm light behind the panels. Hover (or tab to) a button and it swings open — light floods out. Toggle the theme top-right; it inherits both modes from <code>currentColor</code>.</p>
+  </section>
+
+  <!-- big preview so the shape reads -->
+  <section class="lab-block">
+    <span class="lab-tag">The glyph, up close</span>
+    <h2 style="margin-top:10px">Closed → open</h2>
+    <p class="lab-cap">Hover the door below to see the swing in isolation, before it shrinks to button size.</p>
+    <div class="lab-stage">
+      <div class="door-demo" tabindex="0" aria-label="Door opening on hover">
+        <svg class="door-ico" viewBox="0 0 24 24" aria-hidden="true">
+          <rect class="light" x="5.6" y="2.8" width="12.8" height="18.6" rx="0.6"/>
+          <path class="frame" d="M4.2 21.4 H19.8 M5.4 21.4 V2.6 H18.6 V21.4"/>
+          <g class="leaf">
+            <path class="slab" fill-rule="evenodd" d="M6 3.2 H17.4 V21.4 H6 Z M8 5.4 H15.4 V10.4 H8 Z M8 12.4 H15.4 V18.4 H8 Z"/>
+            <circle class="knob" cx="16" cy="11.4" r="0.95"/>
+          </g>
+        </svg>
+        <span class="cap">hover me</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- on real buttons -->
+  <section class="lab-block">
+    <span class="lab-tag">On the buttons</span>
+    <h2 style="margin-top:10px">Solid · outline · ghost</h2>
+    <p class="lab-cap">Same glyph at 18px. It sits before the label and opens on hover — quiet enough for a calm, editorial page, and it works on every button style.</p>
+    <div class="lab-stage">
+      <a class="btn btn-solid" href="#">
+        <svg class="door-ico" viewBox="0 0 24 24" aria-hidden="true"><rect class="light" x="5.6" y="2.8" width="12.8" height="18.6" rx="0.6"/><path class="frame" d="M4.2 21.4 H19.8 M5.4 21.4 V2.6 H18.6 V21.4"/><g class="leaf"><path class="slab" fill-rule="evenodd" d="M6 3.2 H17.4 V21.4 H6 Z M8 5.4 H15.4 V10.4 H8 Z M8 12.4 H15.4 V18.4 H8 Z"/><circle class="knob" cx="16" cy="11.4" r="0.95"/></g></svg>
+        <span>Donate</span>
+      </a>
+      <a class="btn" href="#">
+        <svg class="door-ico" viewBox="0 0 24 24" aria-hidden="true"><rect class="light" x="5.6" y="2.8" width="12.8" height="18.6" rx="0.6"/><path class="frame" d="M4.2 21.4 H19.8 M5.4 21.4 V2.6 H18.6 V21.4"/><g class="leaf"><path class="slab" fill-rule="evenodd" d="M6 3.2 H17.4 V21.4 H6 Z M8 5.4 H15.4 V10.4 H8 Z M8 12.4 H15.4 V18.4 H8 Z"/><circle class="knob" cx="16" cy="11.4" r="0.95"/></g></svg>
+        <span>Find support</span>
+      </a>
+      <a class="btn btn-ghost" href="#">
+        <svg class="door-ico" viewBox="0 0 24 24" aria-hidden="true"><rect class="light" x="5.6" y="2.8" width="12.8" height="18.6" rx="0.6"/><path class="frame" d="M4.2 21.4 H19.8 M5.4 21.4 V2.6 H18.6 V21.4"/><g class="leaf"><path class="slab" fill-rule="evenodd" d="M6 3.2 H17.4 V21.4 H6 Z M8 5.4 H15.4 V10.4 H8 Z M8 12.4 H15.4 V18.4 H8 Z"/><circle class="knob" cx="16" cy="11.4" r="0.95"/></g></svg>
+        <span>Get involved</span>
+      </a>
+    </div>
+    <div class="lab-stage dark">
+      <a class="btn btn-solid" style="background:var(--inv-fg);color:var(--inv-bg);border-color:var(--inv-fg)" href="#">
+        <svg class="door-ico" viewBox="0 0 24 24" aria-hidden="true"><rect class="light" x="5.6" y="2.8" width="12.8" height="18.6" rx="0.6"/><path class="frame" d="M4.2 21.4 H19.8 M5.4 21.4 V2.6 H18.6 V21.4"/><g class="leaf"><path class="slab" fill-rule="evenodd" d="M6 3.2 H17.4 V21.4 H6 Z M8 5.4 H15.4 V10.4 H8 Z M8 12.4 H15.4 V18.4 H8 Z"/><circle class="knob" cx="16" cy="11.4" r="0.95"/></g></svg>
+        <span>Donate</span>
+      </a>
+      <a class="btn" style="border-color:color-mix(in srgb,var(--inv-fg) 40%,transparent);color:var(--inv-fg)" href="#">
+        <svg class="door-ico" viewBox="0 0 24 24" aria-hidden="true"><rect class="light" x="5.6" y="2.8" width="12.8" height="18.6" rx="0.6"/><path class="frame" d="M4.2 21.4 H19.8 M5.4 21.4 V2.6 H18.6 V21.4"/><g class="leaf"><path class="slab" fill-rule="evenodd" d="M6 3.2 H17.4 V21.4 H6 Z M8 5.4 H15.4 V10.4 H8 Z M8 12.4 H15.4 V18.4 H8 Z"/><circle class="knob" cx="16" cy="11.4" r="0.95"/></g></svg>
+        <span>On the dark band</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="lab-block" style="padding-bottom:clamp(60px,10vh,120px)">
+    <p class="lab-cap" style="max-width:64ch">Tuning knobs (in the <code>&lt;style&gt;</code> block): the swing is one line — <code>rotateY(-58deg)</code> on <code>.btn:hover .door-ico .leaf</code>. More negative = opens wider; <code>perspective(70px)</code> controls how much 3D foreshortening (smaller number = more dramatic). If it reads too busy at 18px I can drop to a single panel. Say the word and I'll wire it onto the primary CTAs across the real pages.</p>
+  </section>
+</main>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

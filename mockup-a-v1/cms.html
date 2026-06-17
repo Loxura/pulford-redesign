@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pulford Studio — content</title>
+<meta name="description" content="Concept CMS panel for the Pulford redesign — TipTap rich-text editor.">
+<script>(function(){try{var t=localStorage.getItem('pf-theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400..560&family=Newsreader:ital,opsz,wght@0,6..72,300..500;1,6..72,300..420&family=Outfit:wght@300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+
+<!-- TipTap (+ ProseMirror) pinned through esm.sh; the import map dedupes the core so extensions share one instance -->
+<script type="importmap">
+{
+  "imports": {
+    "@tiptap/core": "https://esm.sh/@tiptap/core@2",
+    "@tiptap/pm/": "https://esm.sh/@tiptap/pm@2/",
+    "@tiptap/starter-kit": "https://esm.sh/@tiptap/starter-kit@2?external=@tiptap/core,@tiptap/pm",
+    "@tiptap/extension-link": "https://esm.sh/@tiptap/extension-link@2?external=@tiptap/core,@tiptap/pm",
+    "@tiptap/extension-image": "https://esm.sh/@tiptap/extension-image@2?external=@tiptap/core,@tiptap/pm",
+    "@tiptap/extension-placeholder": "https://esm.sh/@tiptap/extension-placeholder@2?external=@tiptap/core,@tiptap/pm"
+  }
+}
+</script>
+
+<style>
+/* ============================================================
+   PULFORD STUDIO — concept CMS chrome
+   Sans-serif UI (Outfit) on the brand's warm palette; the article
+   canvas keeps the site serif so editing matches the published page.
+   ============================================================ */
+:root{--ui:"Outfit",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace}
+
+body{font-family:var(--ui);font-weight:400;letter-spacing:0;line-height:1.5;font-size:14.5px}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+/* ---- shell ---- */
+.shell{display:flex;flex-direction:column;height:100dvh;overflow:hidden}
+.topbar{display:flex;align-items:center;gap:18px;height:58px;flex:none;padding:0 18px;
+  border-bottom:1px solid var(--line);background:var(--bg-2)}
+.body{flex:1;min-height:0;display:grid;grid-template-columns:250px minmax(0,1fr) 332px}
+
+/* ---- top bar ---- */
+.tb-brand{display:flex;align-items:center;gap:10px;font-weight:600;letter-spacing:-.01em}
+.tb-brand img{height:22px;filter:var(--art-invert)}
+.tb-brand .sub{color:var(--muted);font-weight:400}
+.crumb{display:flex;align-items:center;gap:9px;color:var(--fg-soft);font-size:13.5px}
+.crumb svg{color:var(--muted)}
+.tb-spacer{flex:1}
+.save{display:inline-flex;align-items:center;gap:8px;color:var(--muted);font-size:13px}
+.save .dot{width:7px;height:7px;border-radius:50%;background:#3a9d5d;transition:background .3s}
+.save.dirty .dot{background:var(--accent)}
+.tb-ic{width:36px;height:36px;border-radius:9px;border:1px solid var(--line-2);background:transparent;
+  color:var(--fg);display:grid;place-items:center;cursor:pointer;transition:border-color .2s,background .2s}
+.tb-ic:hover{border-color:var(--fg)}
+.tb-ic .moon{display:none}
+html[data-theme="dark"] .tb-ic .sun{display:none}html[data-theme="dark"] .tb-ic .moon{display:block}
+.avatar{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:600;font-size:13px;
+  background:color-mix(in srgb,var(--accent) 24%,var(--bg-2));color:var(--accent-ink);border:1px solid var(--line-2)}
+.btn-ui{font-family:var(--ui);font-weight:500;font-size:13.5px;border-radius:9px;padding:9px 16px;cursor:pointer;
+  border:1px solid var(--line-2);background:transparent;color:var(--fg);
+  display:inline-flex;align-items:center;gap:8px;transition:transform .15s,background .2s,border-color .2s,color .2s}
+.btn-ui:hover{border-color:var(--fg)}.btn-ui:active{transform:translateY(1px)}
+.btn-pub{background:var(--accent);border-color:var(--accent);color:#1c1308;font-weight:600}
+.btn-pub:hover{background:color-mix(in srgb,var(--accent) 86%,#000);border-color:transparent}
+
+/* ---- sidebar ---- */
+.sidebar{border-right:1px solid var(--line);background:var(--bg-2);overflow:auto;padding:14px 12px}
+.side-search{display:flex;align-items:center;gap:9px;border:1px solid var(--line-2);border-radius:9px;
+  padding:9px 12px;color:var(--muted);font-size:13px;margin-bottom:16px;cursor:text}
+.side-search kbd{margin-left:auto;font-family:var(--mono);font-size:11px;border:1px solid var(--line);
+  border-radius:5px;padding:1px 6px;color:var(--muted)}
+.side-group{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+  font-weight:600;padding:14px 10px 7px}
+.side-link{display:flex;align-items:center;gap:11px;padding:9px 10px;border-radius:9px;color:var(--fg-soft);
+  cursor:pointer;transition:background .15s,color .15s;position:relative}
+.side-link svg{width:17px;height:17px;color:var(--muted);flex:none}
+.side-link:hover{background:color-mix(in srgb,var(--fg) 5%,transparent);color:var(--fg)}
+.side-link .count{margin-left:auto;font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+.side-link.active{background:color-mix(in srgb,var(--accent) 15%,transparent);color:var(--fg);font-weight:500}
+.side-link.active svg{color:var(--accent-ink)}
+.side-link.active::before{content:"";position:absolute;left:-12px;top:8px;bottom:8px;width:3px;
+  border-radius:0 3px 3px 0;background:var(--accent)}
+
+/* ---- editor column ---- */
+.editor-col{overflow:auto;background:var(--bg)}
+.doc-bar{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  padding:13px 30px;border-bottom:1px solid var(--line);
+  background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(10px)}
+.pill{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:500;border-radius:999px;
+  padding:5px 12px;border:1px solid var(--line-2);color:var(--fg-soft)}
+.pill .dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.doc-meta{display:flex;align-items:center;gap:18px;color:var(--muted);font-size:12.5px;margin-left:auto}
+.doc-canvas{max-width:760px;margin:0 auto;padding:40px 30px 120px}
+.title-input{width:100%;border:0;background:transparent;color:var(--fg);font-family:var(--serif);
+  font-weight:560;font-size:clamp(30px,3.6vw,46px);letter-spacing:-.03em;line-height:1.04;resize:none;outline:none}
+.title-input::placeholder{color:var(--line-2)}
+.slug-row{display:flex;align-items:center;gap:2px;margin:14px 0 26px;font-family:var(--mono);font-size:13px;color:var(--muted)}
+.slug-row .base{color:var(--line-2)}
+.slug-row input{font-family:var(--mono);font-size:13px;color:var(--accent-ink);background:transparent;border:0;outline:none;
+  border-bottom:1px dashed var(--line-2);padding:2px 2px}
+
+/* ---- TipTap toolbar ---- */
+.tt-toolbar{position:sticky;top:53px;z-index:4;display:flex;align-items:center;gap:3px;flex-wrap:wrap;
+  padding:7px;margin-bottom:8px;border:1px solid var(--line);border-radius:11px;background:var(--bg-2)}
+.tt-toolbar .sep{width:1px;height:22px;background:var(--line);margin:0 5px}
+.tt-btn{min-width:34px;height:34px;padding:0 9px;border:0;border-radius:8px;background:transparent;color:var(--fg-soft);
+  cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:4px;
+  font-family:var(--ui);font-size:14px;font-weight:600;transition:background .15s,color .15s}
+.tt-btn svg{width:17px;height:17px}
+.tt-btn:hover{background:color-mix(in srgb,var(--fg) 7%,transparent);color:var(--fg)}
+.tt-btn.is-active{background:color-mix(in srgb,var(--accent) 20%,transparent);color:var(--accent-ink)}
+.tt-btn[data-a="italic"]{font-style:italic;font-family:var(--serif)}
+.tt-btn[data-a="bold"]{font-family:var(--serif)}
+.tt-btn .lvl{font-size:10px;font-weight:600;align-self:flex-end;margin-bottom:3px}
+
+/* ---- editable canvas (matches the public article styling) ---- */
+#editor{font-family:var(--text);font-size:18px;line-height:1.7;color:var(--fg-soft)}
+#editor:focus{outline:none}
+.ProseMirror:focus{outline:none}
+#editor h2{font-family:var(--serif);color:var(--fg);font-weight:560;font-size:1.55em;letter-spacing:-.02em;
+  line-height:1.1;margin:1.4em 0 .5em}
+#editor h3{font-family:var(--serif);color:var(--fg);font-weight:560;font-size:1.25em;letter-spacing:-.01em;margin:1.3em 0 .4em}
+#editor p{margin:0 0 1.05em}
+#editor a{color:var(--accent-ink);text-decoration:underline;text-underline-offset:2px;text-decoration-color:var(--line-2)}
+#editor strong{color:var(--fg);font-weight:600}
+#editor ul,#editor ol{margin:0 0 1.05em;padding-left:1.4em}
+#editor li{margin:.3em 0}
+#editor li::marker{color:var(--accent)}
+#editor blockquote{margin:1.4em 0;padding:4px 0 4px 22px;border-left:2px solid var(--accent);
+  font-family:var(--serif);font-style:italic;font-size:1.15em;color:var(--fg)}
+#editor img{width:100%;border-radius:6px;margin:.6em 0;filter:var(--photo)}
+#editor .is-editor-empty:first-child::before{content:attr(data-placeholder);color:var(--line-2);float:left;height:0;pointer-events:none}
+.cap{font-size:.82em;color:var(--muted);font-style:italic;margin-top:-.4em}
+
+/* ---- right rail ---- */
+.rail{border-left:1px solid var(--line);background:var(--bg-2);overflow:auto;padding:22px 20px}
+.rail h4{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;
+  margin:26px 0 13px}.rail h4:first-child{margin-top:0}
+.fld{margin-bottom:15px}
+.fld label{display:block;font-size:12.5px;font-weight:500;color:var(--fg-soft);margin-bottom:6px}
+.fld input[type=text],.fld input[type=date],.fld select,.fld textarea{width:100%;font-family:var(--ui);font-size:13.5px;
+  color:var(--fg);background:var(--bg);border:1px solid var(--line-2);border-radius:8px;padding:9px 11px;outline:none;
+  transition:border-color .2s,box-shadow .2s}
+.fld textarea{resize:vertical;min-height:74px;line-height:1.45}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--fg);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--fg) 10%,transparent)}
+.fld .help{display:flex;justify-content:space-between;color:var(--muted);font-size:11.5px;margin-top:5px}
+.seg{display:grid;grid-template-columns:repeat(2,1fr);gap:4px;background:var(--bg);border:1px solid var(--line-2);
+  border-radius:9px;padding:3px}
+.seg button{font-family:var(--ui);font-size:12.5px;font-weight:500;border:0;background:transparent;color:var(--fg-soft);
+  padding:7px 4px;border-radius:6px;cursor:pointer;transition:background .15s,color .15s}
+.seg button.on{background:var(--accent);color:#1c1308;font-weight:600}
+.thumb{position:relative;border-radius:10px;overflow:hidden;border:1px solid var(--line);aspect-ratio:16/10}
+.thumb img{width:100%;height:100%;object-fit:cover;filter:var(--photo)}
+.thumb .swap{position:absolute;inset:auto 8px 8px auto;font-size:11.5px;font-weight:500;padding:5px 10px;border-radius:7px;
+  background:color-mix(in srgb,#000 55%,transparent);color:#fff;cursor:pointer;backdrop-filter:blur(4px)}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;border:1px solid var(--line-2);border-radius:999px;
+  padding:5px 11px;color:var(--fg-soft)}
+.chip .x{color:var(--muted);cursor:pointer}.chip.add{cursor:pointer;color:var(--muted);border-style:dashed}
+/* search-snippet preview */
+.serp{border:1px solid var(--line);border-radius:10px;padding:13px 14px;background:var(--bg)}
+.serp .u{font-size:12px;color:#3a7d52}
+.serp .t{font-family:var(--ui);font-size:16px;color:var(--accent-ink);margin:3px 0 4px;line-height:1.25}
+.serp .d{font-size:12.5px;color:var(--fg-soft);line-height:1.4}
+
+/* ---- offline / load fallback ---- */
+.tt-note{display:none;margin:14px 0;padding:11px 14px;border:1px solid var(--line-2);border-radius:9px;
+  background:var(--bg-2);color:var(--fg-soft);font-size:13px}
+.tt-note.show{display:block}
+
+/* ---- mobile ---- */
+.menu-btn{display:none}
+@media (max-width:1180px){
+  .body{grid-template-columns:250px minmax(0,1fr)}
+  .rail{grid-column:1/-1;border-left:0;border-top:1px solid var(--line)}
+}
+@media (max-width:820px){
+  .body{grid-template-columns:1fr}
+  .menu-btn{display:grid}
+  .sidebar{position:fixed;z-index:40;top:58px;bottom:0;left:0;width:264px;transform:translateX(-100%);
+    transition:transform .3s cubic-bezier(.16,1,.3,1);box-shadow:var(--shadow)}
+  .sidebar.open{transform:none}
+  .doc-meta{display:none}
+  .doc-canvas{padding:28px 20px 100px}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- ===== TOP BAR ===== -->
+  <header class="topbar">
+    <button class="tb-ic menu-btn" id="menuBtn" aria-label="Menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+    <a class="tb-brand" href="index.html"><img src="assets/art/pf-icon.png" alt=""><span>Pulford <span class="sub">Studio</span></span></a>
+    <span class="crumb"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m9 18 6-6-6-6"/></svg> News &amp; Stories <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m9 18 6-6-6-6"/></svg> <span style="color:var(--fg)">Editing</span></span>
+    <span class="tb-spacer"></span>
+    <span class="save" id="save"><span class="dot"></span><span class="txt">Saved · just now</span></span>
+    <button class="tb-ic theme-toggle" aria-label="Toggle theme" title="Light / dark">
+      <svg class="sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M19.4 4.6l-1.8 1.8M6.4 17.6l-1.8 1.8"/></svg>
+      <svg class="moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.3 6.3 0 0 0 10.5 10.5z"/></svg>
+    </button>
+    <button class="btn-ui" id="previewBtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="2.6"/></svg> Preview</button>
+    <button class="btn-ui btn-pub" id="pubBtn">Publish</button>
+    <span class="avatar" title="Renée Sauvé">RS</span>
+  </header>
+
+  <div class="body">
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar" id="sidebar">
+      <div class="side-search"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg> Search content <kbd>/</kbd></div>
+
+      <div class="side-group">Content</div>
+      <div class="side-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg> Pages <span class="count">9</span></div>
+      <div class="side-link active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 5h16M4 5v14a1 1 0 0 0 1 1h11l4-4V5"/><path d="M8 10h8M8 14h5"/></svg> News &amp; Stories <span class="count">23</span></div>
+      <div class="side-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg> Services <span class="count">4</span></div>
+      <div class="side-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0"/><path d="M16 6.5a3 3 0 0 1 0 5.6M16.5 20a5.5 5.5 0 0 0-3-4.9"/></svg> Team &amp; Board <span class="count">14</span></div>
+      <div class="side-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg> Events <span class="count">6</span></div>
+      <div class="side-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8a3 3 0 0 1 6 0"/></svg> Social Enterprise <span class="count">3</span></div>
+
+      <div class="side-group">Library</div>
+      <div class="side-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m4 18 5-4 4 3 3-2 4 3"/></svg> Media <span class="count">312</span></div>
+      <div class="side-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h4"/></svg> Form submissions <span class="count">7</span></div>
+
+      <div class="side-group">Site</div>
+      <div class="side-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 6h16M4 12h16M4 18h16"/></svg> Navigation</div>
+      <div class="side-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l2-1.5-2-3.5-2.3 1a7 7 0 0 0-1.7-1l-.3-2.5h-4l-.3 2.5a7 7 0 0 0-1.7 1l-2.3-1-2 3.5L4.1 11a7 7 0 0 0 0 2l-2 1.5 2 3.5 2.3-1a7 7 0 0 0 1.7 1l.3 2.5h4l.3-2.5a7 7 0 0 0 1.7-1l2.3 1 2-3.5-2-1.5a7 7 0 0 0 .1-1Z"/></svg> Settings</div>
+    </aside>
+
+    <!-- ===== EDITOR ===== -->
+    <main class="editor-col">
+      <div class="doc-bar">
+        <span class="pill" id="statusPill"><span class="dot"></span> Draft</span>
+        <div class="doc-meta">
+          <span><span class="num" id="words">0</span> words</span>
+          <span><span class="num">3</span> min read</span>
+          <span>Edited by Renée Sauvé</span>
+        </div>
+      </div>
+
+      <div class="doc-canvas">
+        <textarea class="title-input" id="title" rows="2" placeholder="Untitled story">Pairings with Pulford 2026: a record-breaking night</textarea>
+        <div class="slug-row"><span class="base">pulford.ca/news/</span><input id="slug" value="pairings-with-pulford-2026" aria-label="URL slug"></div>
+
+        <!-- TipTap toolbar -->
+        <div class="tt-toolbar" id="toolbar" role="toolbar" aria-label="Formatting">
+          <button class="tt-btn" data-a="undo" title="Undo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 7 4 12l5 5"/><path d="M4 12h11a5 5 0 0 1 0 10h-1"/></svg></button>
+          <button class="tt-btn" data-a="redo" title="Redo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m15 7 5 5-5 5"/><path d="M20 12H9a5 5 0 0 0 0 10h1"/></svg></button>
+          <span class="sep"></span>
+          <button class="tt-btn" data-a="h2" title="Heading">H<span class="lvl">2</span></button>
+          <button class="tt-btn" data-a="h3" title="Subheading">H<span class="lvl">3</span></button>
+          <span class="sep"></span>
+          <button class="tt-btn" data-a="bold" title="Bold (Ctrl+B)">B</button>
+          <button class="tt-btn" data-a="italic" title="Italic (Ctrl+I)">I</button>
+          <button class="tt-btn" data-a="strike" title="Strikethrough"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 12h14"/><path d="M8 7a3.5 3.5 0 0 1 6 1M9 16a3.5 3.5 0 0 0 6-1.5"/></svg></button>
+          <span class="sep"></span>
+          <button class="tt-btn" data-a="bullet" title="Bulleted list"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1.1" fill="currentColor" stroke="none"/><circle cx="4.5" cy="12" r="1.1" fill="currentColor" stroke="none"/><circle cx="4.5" cy="18" r="1.1" fill="currentColor" stroke="none"/></svg></button>
+          <button class="tt-btn" data-a="ordered" title="Numbered list"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M10 6h10M10 12h10M10 18h10"/><path d="M4 4.5h1.4V9M3.6 15.2c.2-.7 1.6-.8 1.7.1.1.7-1.6 1.6-1.8 2.7H5.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button class="tt-btn" data-a="quote" title="Quote"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 7H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h2v3a3 3 0 0 1-2 1M20 7h-4a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h2v3a3 3 0 0 1-2 1"/></svg></button>
+          <button class="tt-btn" data-a="link" title="Add link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 13a4 4 0 0 0 6 .5l3-3a4 4 0 1 0-5.6-5.6l-1.6 1.6"/><path d="M15 11a4 4 0 0 0-6-.5l-3 3A4 4 0 1 0 11.6 19l1.5-1.5"/></svg></button>
+        </div>
+
+        <p class="tt-note" id="ttNote">Loading the editor… if it doesn't become editable, this page needs an internet connection (TipTap loads from a CDN in this concept build). The formatted draft below still shows exactly how content renders.</p>
+
+        <!-- The article. TipTap takes this over; if the CDN is unreachable it stays here as a styled, read-only fallback. -->
+        <div id="editor">
+          <p>After two years of quiet rebuilding, <strong>Pairings with Pulford</strong> returned to the Fort Garry Hotel on a snow-bright Saturday — and turned into the most successful fundraising evening in the organization's history.</p>
+          <p>Two hundred and forty guests filled the ballroom for an evening of food, music and storytelling, raising funds that will go directly into homes, day programs and family supports across Winnipeg, the Interlake and Eastman.</p>
+          <h2>An evening built by the whole community</h2>
+          <p>The night came together through dozens of local partners — restaurants, vintners, musicians and volunteers who gave their time so that every dollar raised could go where it matters most. As board chair Marguerite Delorme put it from the stage:</p>
+          <blockquote>We don't measure a night like this in tickets sold. We measure it in the doors it opens — a first apartment, a steady job, a Tuesday that finally belongs to the person living it.</blockquote>
+          <p>Highlights from the evening included:</p>
+          <ul>
+            <li>A live raffle that drew the largest single-night response on record</li>
+            <li>Twelve tasting stations hosted by Manitoba chefs and producers</li>
+            <li>A short film featuring three people supported by Pulford, in their own words</li>
+          </ul>
+          <img src="assets/photos/group.jpg" alt="Guests and Pulford community members gathered together at the event">
+          <p class="cap">Community members and supporters gather at Pairings with Pulford 2026.</p>
+          <h3>Where the funds go next</h3>
+          <p>Proceeds are already being directed toward expanding supported independent living placements and a new respite stream for families. For partnership or sponsorship enquiries, <a href="contact.html">reach out to our team</a> — there's a place for everyone at the next table.</p>
+        </div>
+      </div>
+    </main>
+
+    <!-- ===== RIGHT RAIL ===== -->
+    <aside class="rail">
+      <h4>Status</h4>
+      <div class="seg" id="seg">
+        <button data-s="Draft" class="on">Draft</button>
+        <button data-s="In review">In review</button>
+        <button data-s="Scheduled">Scheduled</button>
+        <button data-s="Published">Published</button>
+      </div>
+      <div class="fld" style="margin-top:14px">
+        <label for="pubdate">Publish date</label>
+        <input type="date" id="pubdate" value="2026-02-14">
+      </div>
+      <div class="fld">
+        <label for="author">Author</label>
+        <select id="author"><option>Renée Sauvé</option><option>Marguerite Delorme</option><option>Communications team</option></select>
+      </div>
+
+      <h4>Featured image</h4>
+      <div class="thumb"><img src="assets/photos/group.jpg" alt="Featured image preview"><span class="swap">Replace</span></div>
+
+      <h4>Categories</h4>
+      <div class="chips">
+        <span class="chip">Events <span class="x">×</span></span>
+        <span class="chip">Fundraising <span class="x">×</span></span>
+        <span class="chip add">+ Add</span>
+      </div>
+
+      <h4>Search appearance</h4>
+      <div class="serp">
+        <div class="u">pulford.ca › news › pairings-with-pulford-2026</div>
+        <div class="t" id="serpTitle">Pairings with Pulford 2026: a record-breaking night</div>
+        <div class="d" id="serpDesc">Two hundred and forty guests, twelve Manitoba chefs, one record night — how Pairings with Pulford 2026 will open more doors across the province.</div>
+      </div>
+      <div class="fld" style="margin-top:14px">
+        <label for="meta">Meta description</label>
+        <textarea id="meta" maxlength="170">Two hundred and forty guests, twelve Manitoba chefs, one record night — how Pairings with Pulford 2026 will open more doors across the province.</textarea>
+        <div class="help"><span>Aim for 150–160</span><span><span class="num" id="metaCount">0</span>/160</span></div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<script src="assets/app.js"></script>
+<script type="module">
+  import { Editor } from '@tiptap/core'
+  import StarterKit from '@tiptap/starter-kit'
+  import Link from '@tiptap/extension-link'
+  import Image from '@tiptap/extension-image'
+  import Placeholder from '@tiptap/extension-placeholder'
+
+  const el = document.querySelector('#editor')
+  const initial = el.innerHTML
+  const note = document.querySelector('#ttNote')
+  const failTimer = setTimeout(()=>note.classList.add('show'), 4000) // reveal hint if the CDN stalls
+
+  const editor = new Editor({
+    element: el,
+    extensions: [
+      StarterKit.configure({ heading: { levels: [2, 3] } }),
+      Link.configure({ openOnClick: false, autolink: true, HTMLAttributes: { rel: 'noopener' } }),
+      Image,
+      Placeholder.configure({ placeholder: 'Tell the story…' }),
+    ],
+    content: initial,
+    autofocus: false,
+  })
+  clearTimeout(failTimer)
+  note.classList.remove('show')
+
+  /* ---- toolbar wiring ---- */
+  const tb = document.querySelector('#toolbar')
+  const run = {
+    undo:    () => editor.chain().focus().undo().run(),
+    redo:    () => editor.chain().focus().redo().run(),
+    h2:      () => editor.chain().focus().toggleHeading({ level: 2 }).run(),
+    h3:      () => editor.chain().focus().toggleHeading({ level: 3 }).run(),
+    bold:    () => editor.chain().focus().toggleBold().run(),
+    italic:  () => editor.chain().focus().toggleItalic().run(),
+    strike:  () => editor.chain().focus().toggleStrike().run(),
+    bullet:  () => editor.chain().focus().toggleBulletList().run(),
+    ordered: () => editor.chain().focus().toggleOrderedList().run(),
+    quote:   () => editor.chain().focus().toggleBlockquote().run(),
+    link:    () => {
+      const prev = editor.getAttributes('link').href || ''
+      const url = window.prompt('Link URL', prev)
+      if (url === null) return
+      if (url === '') { editor.chain().focus().unsetLink().run(); return }
+      editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run()
+    },
+  }
+  tb.addEventListener('click', (e) => {
+    const b = e.target.closest('.tt-btn'); if (!b) return
+    run[b.dataset.a]?.()
+  })
+  const active = {
+    h2: ['heading', { level: 2 }], h3: ['heading', { level: 3 }],
+    bold: ['bold'], italic: ['italic'], strike: ['strike'],
+    bullet: ['bulletList'], ordered: ['orderedList'], quote: ['blockquote'], link: ['link'],
+  }
+  const refresh = () => {
+    tb.querySelectorAll('.tt-btn').forEach(b => {
+      const a = active[b.dataset.a]
+      if (a) b.classList.toggle('is-active', editor.isActive(...a))
+    })
+  }
+  editor.on('selectionUpdate', refresh)
+  editor.on('transaction', refresh)
+
+  /* ---- live counters + autosave simulation ---- */
+  const wordsEl = document.querySelector('#words')
+  const save = document.querySelector('#save')
+  const saveTxt = save.querySelector('.txt')
+  let t
+  const countWords = () => {
+    const n = editor.getText().trim().split(/\s+/).filter(Boolean).length
+    wordsEl.textContent = n
+  }
+  const markSaving = () => {
+    save.classList.add('dirty'); saveTxt.textContent = 'Unsaved changes…'
+    clearTimeout(t); t = setTimeout(() => { save.classList.remove('dirty'); saveTxt.textContent = 'Saved · just now' }, 1300)
+  }
+  editor.on('update', () => { countWords(); markSaving() })
+  countWords(); refresh()
+
+  /* ---- title / slug / meta / status (chrome interactions) ---- */
+  const title = document.querySelector('#title')
+  const auto = (t2) => { t2.style.height = 'auto'; t2.style.height = t2.scrollHeight + 'px' }
+  auto(title)
+  title.addEventListener('input', () => {
+    auto(title); document.querySelector('#serpTitle').textContent = title.value || 'Untitled story'
+    document.querySelector('#slug').value = title.value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 60)
+    markSaving()
+  })
+
+  const meta = document.querySelector('#meta'), metaCount = document.querySelector('#metaCount')
+  const syncMeta = () => { metaCount.textContent = meta.value.length; document.querySelector('#serpDesc').textContent = meta.value; }
+  meta.addEventListener('input', () => { syncMeta(); markSaving() }); syncMeta()
+
+  const pill = document.querySelector('#statusPill')
+  document.querySelector('#seg').addEventListener('click', (e) => {
+    const b = e.target.closest('button'); if (!b) return
+    document.querySelectorAll('#seg button').forEach(x => x.classList.remove('on'))
+    b.classList.add('on'); pill.lastChild.textContent = ' ' + b.dataset.s; markSaving()
+  })
+
+  document.querySelector('#pubBtn').addEventListener('click', () => {
+    saveTxt.textContent = 'Published · live in ~30s'; save.classList.remove('dirty')
+  })
+  document.querySelector('#previewBtn').addEventListener('click', () => window.open('index.html', '_blank'))
+
+  /* ---- mobile sidebar ---- */
+  document.querySelector('#menuBtn')?.addEventListener('click', () => document.querySelector('#sidebar').classList.toggle('open'))
+</script>
+</body>
+</html>

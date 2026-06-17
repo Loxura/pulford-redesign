@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" width="200" height="240" role="img" aria-label="An open door" fill="none" stroke="#F2F2F2" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <!-- door frame -->
+  <path d="M44 226 V30 H156 V226"/>
+  <!-- threshold -->
+  <path d="M30 226 H170"/>
+  <!-- door, swung open -->
+  <path d="M44 30 L96 16 V214 L44 226"/>
+  <!-- handle -->
+  <circle cx="58" cy="124" r="4.5"/>
+  <!-- light spilling through the opening -->
+  <path d="M118 60 L150 60"/>
+  <path d="M118 92 L150 92"/>
+  <path d="M118 124 L150 124"/>
+  <path d="M118 156 L150 156"/>
+  <path d="M118 188 L150 188"/>
+</svg>

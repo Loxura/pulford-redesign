@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 132" width="340" height="132" role="img" aria-label="A small community of houses and trees" fill="none" stroke="#F2F2F2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+  <!-- ground -->
+  <path d="M6 120 H334"/>
+
+  <!-- tree (left) -->
+  <circle cx="40" cy="74" r="20"/>
+  <path d="M40 94 V120"/>
+
+  <!-- house 1 -->
+  <path d="M74 120 V72 H120 V120"/>
+  <path d="M66 73 L97 46 L128 73"/>
+  <path d="M90 120 V98 H104 V120"/>
+  <rect x="83" y="80" width="9" height="9"/>
+
+  <!-- house 2 (taller, centre) -->
+  <path d="M150 120 V58 H196 V120"/>
+  <path d="M142 59 L173 30 L204 59"/>
+  <path d="M166 120 V94 H180 V120"/>
+  <rect x="159" y="70" width="9" height="9"/>
+  <rect x="178" y="70" width="9" height="9"/>
+
+  <!-- tree (middle) -->
+  <circle cx="232" cy="80" r="16"/>
+  <path d="M232 96 V120"/>
+
+  <!-- house 3 -->
+  <path d="M260 120 V76 H306 V120"/>
+  <path d="M252 77 L283 50 L314 77"/>
+  <path d="M276 120 V100 H290 V120"/>
+
+  <!-- tree (right) -->
+  <circle cx="324" cy="86" r="13"/>
+  <path d="M324 99 V120"/>
+</svg>

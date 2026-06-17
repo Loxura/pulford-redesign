@@ -1,0 +1,51 @@
+URL: https://www.pulford.ca/
+PAGE: Home
+
+=== HEADER / NAVIGATION ===
+Pulford Community Living Services
+Social Media: Facebook, Twitter, Instagram
+User account menu: Log in
+
+Main Navigation:
+- Home
+- About (Philosophy, Story, Board of Directors, Privacy Policy)
+- Services (Day Services, Residential, Support for Families, Supported Independent Living)
+- Employment
+- Volunteer (Winnipeg, Lundar - Interlake Region, St. Anne - Eastman Region)
+- Social Enterprise (About Social Enterprise, Giant Game Rentals, Room Rentals, The Store)
+- News (Events, Pulford Community Calendar)
+- Contact
+- Donate
+
+=== MAIN CONTENT ===
+"Established in 1986, Pulford Community Living is a not-for-profit community-based organization that provides supports to persons living with intellectual and developmental disabilities in Manitoba."
+
+"Pulford proudly provides person-centered programming."
+
+"There is a myriad of ways to support Pulford programs and initiatives."
+
+News/Events Section:
+- Pairings with Pulford 2026 RECAP (Apr 15)
+- Raffle Prize Winner List PwP2026 (Apr 14)
+- Pairings 2026 - Partners (Feb 13)
+
+"Pulford Community Living Services Inc. has established The Pulford Community Living Services Endowment Fund."
+
+"Since 1986, Pulford has continuously provided housing and supports to persons with a developmental disability."
+
+"Pulford proudly operates a second hand store conveniently located at 41 Arena Road in Ste. Anne, Manitoba."
+
+"Giving online is the easiest and fastest way to give."
+
+=== FOOTER ===
+Contact:
+1146 Waverley St Unit 5, Winnipeg, MB R3T 0P4
+(204) 284-2255
+
+Canadian Registered Charity Number: 119106276RR0001
+
+Land Acknowledgment:
+"Pulford Community Living Service's head office is located on Treaty 1 territory, the traditional lands of First Nations and the homeland of the Metis people."
+
+Copyright Pulford Community Living Services
+Winnipeg Web Design by Verda Design

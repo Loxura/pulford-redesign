@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 280" fill="none"
+     stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"
+     role="img" aria-label="A doorway with two doors">
+
+  <!-- doorway frame / arch -->
+  <path d="M40 268 V44 a88 88 0 0 1 176 0 V268"/>
+
+  <!-- closed leaves shown ajar; #door-l / #door-r are animatable groups -->
+  <g id="door-l">
+    <path d="M128 56 V262 H58 V70 a72 72 0 0 1 70 -14 Z"/>
+    <circle cx="112" cy="160" r="4" fill="#fff" stroke="none"/>
+  </g>
+  <g id="door-r">
+    <path d="M128 56 V262 H198 V70 a72 72 0 0 0 -70 -14 Z"/>
+    <circle cx="144" cy="160" r="4" fill="#fff" stroke="none"/>
+  </g>
+</svg>

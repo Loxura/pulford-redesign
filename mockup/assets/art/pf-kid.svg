@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" style="color:#22372E">
+  <!-- the kid from the original mark — seen from behind, head and shoulders -->
+  <g fill="currentColor">
+    <circle cx="100" cy="70" r="42"/>
+    <rect x="86" y="98" width="28" height="24"/>
+    <path d="M24 200 C24 150 56 124 100 124 C144 124 176 150 176 200 Z"/>
+  </g>
+</svg>

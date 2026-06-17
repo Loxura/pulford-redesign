@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 150" style="color:#22372E"
+     role="img" aria-label="A small community of houses and trees under the sun"
+     fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- v2 of the village frieze: wider, chimney, sun, more window detail.
+       currentColor throughout — no invert() filters needed. -->
+  <path d="M8 134 H412"/>
+
+  <!-- sun -->
+  <circle cx="386" cy="38" r="13"/>
+  <path d="M386 17 v-7 M386 59 v7 M365 38 h-7 M407 38 h7 M371 23 l-5 -5 M401 53 l5 5 M401 23 l5 -5 M371 53 l-5 5"/>
+
+  <!-- tree -->
+  <circle cx="36" cy="92" r="18"/>
+  <path d="M36 110 V134"/>
+
+  <!-- house 1 -->
+  <path d="M66 134 V88 H114 V134"/>
+  <path d="M58 89 L90 62 L122 89"/>
+  <path d="M84 134 V112 H98 V134"/>
+  <path d="M72 96 h10 v10 h-10 Z"/>
+
+  <!-- house 2 (tall, centre) -->
+  <path d="M142 134 V70 H192 V134"/>
+  <path d="M134 71 L167 42 L200 71"/>
+  <path d="M186 60 V46 H194 V64"/>
+  <path d="M160 134 V106 H176 V134"/>
+  <path d="M150 82 h10 v10 h-10 Z M174 82 h10 v10 h-10 Z"/>
+
+  <!-- tree -->
+  <circle cx="224" cy="96" r="14"/>
+  <path d="M224 110 V134"/>
+
+  <!-- house 3 -->
+  <path d="M252 134 V92 H300 V134"/>
+  <path d="M244 93 L276 66 L308 93"/>
+  <path d="M268 134 V112 H282 V134"/>
+  <path d="M288 100 h10 v10 h-10 Z"/>
+
+  <!-- tree -->
+  <circle cx="330" cy="100" r="12"/>
+  <path d="M330 112 V134"/>
+
+  <!-- house 4 -->
+  <path d="M352 134 V100 H394 V134"/>
+  <path d="M346 101 L373 78 L400 101"/>
+  <path d="M366 134 V114 H380 V134"/>
+</svg>

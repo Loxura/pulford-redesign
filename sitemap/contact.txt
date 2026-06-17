@@ -1,0 +1,24 @@
+URL: https://www.pulford.ca/contact
+PAGE: Contact
+
+=== MAIN CONTENT ===
+Contact
+"Please Fill Out the Following Form"
+"We are located at 1146 Waverley St Unit 5, Winnipeg, MB R3T 0P4."
+"We will get back to as soon as possible"
+
+Form Fields:
+- Name *
+- Email *
+- Phone
+- Subject (Select an option): General Inquiries | Employment at Pulford | Pay and Benefits | Human Resources | Accounts Payable | Accounts Receivable
+- Comments *
+- CAPTCHA
+- Send message
+
+=== FOOTER ===
+1146 Waverley St Unit 5, Winnipeg, MB R3T 0P4
+(204) 284-2255
+Canadian Registered Charity Number: 119106276RR0001
+Newsletter Signup: "Register for our newsletter! You'll be the first to hear about our fundraisers, exciting changes and more." (Email Address *, First Name)
+Land Acknowledgment statement

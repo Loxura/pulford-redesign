@@ -1,0 +1,33 @@
+URL: https://www.pulford.ca/services
+PAGE: Services
+
+=== MAIN CONTENT ===
+Services
+
+"Supports are provided to assist individuals with all the tasks of daily life. Everything from grocery shopping, and maintaining a household, to social occasions and celebrations!"
+
+Service Categories:
+
+Supported Independent Living
+"Our Supported Independent Living services respect the diversity and individuality of each person. The staff help them to lead self-directed lives with person-centered supports chosen by the individual."
+[Learn More]
+
+Support for Families
+"Outreach supports to families are provided to assist individuals outside the family home."
+[Learn More]
+
+Day Services
+"Our Day Service is community-based and centered upon each person's wants and needs. We take into consideration their unique goals and abilities."
+[Learn More]
+
+Residential
+"Each home is as unique as the people who live there. Pulford strives to ensure that each person feels safe in their own home, and that they have a sense of ownership of where they live."
+[Learn More]
+
+=== FOOTER ===
+1146 Waverley St Unit 5, Winnipeg, MB R3T 0P4
+(204) 284-2255
+Canadian Registered Charity Number: 119106276RR0001
+Newsletter Subscription: Email Address, First Name, Submit button
+Land Acknowledgment: "Pulford Community Living Service's head office is located on Treaty 1 territory, the traditional lands of First Nations and the homeland of the Metis people. We respect Indigenous peoples' history on this land and are committed to reconciliation and collaboration for the future."
+Copyright Pulford Community Living Services / Winnipeg Web Design by Verda Design

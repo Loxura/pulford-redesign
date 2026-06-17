@@ -1,0 +1,25 @@
+URL: https://www.pulford.ca/donate
+PAGE: Donate
+
+=== MAIN CONTENT ===
+Donate
+
+Donation Options:
+
+Donate a Car: "Donate your vehicle and receive free towing and a tax receipt!"
+
+The Winnipeg Foundation: "The Pulford Community Living Services Endowment Fund. This fund is held by the Winnipeg Foundation."
+
+Donate to The Store: "Call us at anytime to make a donation, 204-422-5015"
+
+Donate Online: "Donate Online with CanadaHelps or in person at our office."
+
+CTA: Discover How You Can Help
+
+=== FOOTER ===
+1146 Waverley St Unit 5, Winnipeg, MB R3T 0P4
+(204) 284-2255
+Canadian Registered Charity Number: 119106276RR0001
+Newsletter subscription prompt
+Land Acknowledgment statement
+Copyright / Web design credit

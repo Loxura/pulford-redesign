@@ -1,0 +1,17 @@
+# OS noise
+.DS_Store
+Thumbs.db
+
+# editor
+*.swp
+.idea/
+.vscode/
+
+# scratch node installs (used by image-optimization tooling, plan 004)
+node_modules/
+package-lock.json
+
+# scratch python installs (used by the logo-generation tooling)
+.venv/
+__pycache__/
+*.pyc

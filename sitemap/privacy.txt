@@ -1,0 +1,30 @@
+URL: https://www.pulford.ca/privacy
+PAGE: Privacy Policy
+
+=== MAIN CONTENT ===
+Organization Details:
+Pulford Community Living Services Inc. is located at 5-1146 Waverley St, Winnipeg, MB, Canada. Contact email for privacy inquiries: social.media@pulford.ca.
+
+Policy Last Updated: May 12, 2020
+
+Personal Data Collection — collects personally identifiable information including:
+- Email addresses
+- Names
+- Phone numbers
+- Addresses and postal codes
+- Usage data (IP addresses, browser information, device details)
+
+Cookie Usage: The site employs multiple cookie types — essential cookies for authentication, functionality cookies for preferences, and third-party tracking cookies for analytics and advertising purposes.
+
+Data Usage & Sharing — Pulford uses personal information to:
+- Maintain their service and user accounts
+- Fulfill contracts
+- Send communications about services
+- Manage user requests
+Data may be shared with service providers, business partners, and affiliates. Information shared in public areas becomes viewable by all users.
+
+Third-Party Services: Google Analytics, Google AdSense, Mailchimp email marketing, and Facebook advertising services. Users can opt out of Google Analytics tracking and DoubleClick cookies through provided mechanisms.
+
+User Rights: California residents have specific data removal rights under state law, and individuals can contact the organization regarding privacy concerns.
+
+NOTE: This is a long standard privacy policy (boilerplate). Full legal text available at source if needed for redesign.

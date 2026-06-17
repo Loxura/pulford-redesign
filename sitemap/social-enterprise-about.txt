@@ -1,0 +1,21 @@
+URL: https://www.pulford.ca/social-enterprise/about-social-enterprise
+PAGE: Social Enterprise > About Social Enterprise
+
+=== MAIN CONTENT ===
+Breadcrumb: Home > Social Enterprise > About Social Enterprise
+
+About Social Enterprise
+"Social enterprise is business that helps us grow. Using this model, we are able to create employment opportunities for the people we support, generate revenues to expand our services and programming, and help make Manitoba a better place to live and do business for everyone!"
+
+"Pulford is proud to operate three social enterprises, which have provided over 50,000 hours of job training and employment for people with intellectual disabilities in 2017."
+
+Social Enterprise Links: About Social Enterprise, The Store, Giant Game Rentals, Room Rentals
+CTA: Discover How You Can Help - Learn More
+
+=== FOOTER ===
+1146 Waverley St Unit 5, Winnipeg, MB R3T 0P4
+(204) 284-2255
+Canadian Registered Charity Number: 119106276RR0001
+Newsletter Subscription: "Register for our newsletter! You'll be the first to hear about our fundraisers, exciting changes and more." (Email Address, First Name, Submit)
+Land Acknowledgment statement
+Copyright / Winnipeg Web Design by Verda Design

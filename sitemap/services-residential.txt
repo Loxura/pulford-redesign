@@ -1,0 +1,24 @@
+URL: https://www.pulford.ca/services/residential
+PAGE: Services > Residential
+
+=== MAIN CONTENT ===
+Residential
+Breadcrumb: Home > Services > Residential
+
+"Each home is as unique as the people who live there. Pulford strives to ensure that each person feels safe in their own home, and that they have a sense of ownership of where they live."
+
+"Everyone is encouraged to take part in daily tasks of tending to their home and yard. Supports are provided to assist people to grow to their full potential, to have meaningful roles within their household, and in their communities."
+
+"Pulford will always grow with the people it supports; as their needs change, we adapt in order to provide the person-centered support they need to live a full life."
+
+Other Services: Supported Independent Living, Support for Families, Day Services, Residential
+
+CTA: Discover How You Can Help - Learn More
+
+=== FOOTER ===
+1146 Waverley St Unit 5, Winnipeg, MB R3T 0P4
+(204) 284-2255
+Canadian Registered Charity Number: 119106276RR0001
+Land Acknowledgment statement
+Newsletter subscription field
+Copyright Pulford Community Living Services

@@ -1,0 +1,55 @@
+PULFORD.CA — CONTENT INVENTORY (fetched 2026-06-08)
+Source: https://www.pulford.ca
+For: website redesign
+
+GLOBAL ELEMENTS (appear site-wide)
+- Org: Pulford Community Living Services Inc. (PCLS) — est. 1986, Manitoba not-for-profit
+- Head office: 1146 Waverley St Unit 5, Winnipeg, MB R3T 0P4 | (204) 284-2255
+- Charity #: 119106276RR0001
+- Socials: Facebook, Twitter, Instagram
+- Newsletter signup, Land Acknowledgment (Treaty 1), Login, Search
+- Current site by Verda Design
+
+SITE STRUCTURE / PAGES CAPTURED
+home.txt ......................... Home
+about.txt ........................ About (overview)
+about-philosophy.txt ............. About > Our Philosophy (ALIDA, 7 principles)
+about-story.txt .................. About > Our Story (history, vision, mission, values)
+about-board-of-directors.txt ..... About > Board of Directors (6 members)
+privacy.txt ...................... Privacy Policy
+services.txt ..................... Services (overview)
+services-day-services.txt ........ Services > Day Services
+services-residential.txt ......... Services > Residential
+services-support-families.txt .... Services > Support for Families
+services-supported-independent-living.txt . Services > Supported Independent Living (SIL)
+employment.txt ................... Employment (benefits list)
+employment-apply.txt ............. Employment > Apply (403 - form not capturable)
+volunteer.txt .................... Volunteer (overview)
+volunteer-winnipeg.txt ........... Volunteer > Winnipeg
+volunteer-interlake-region.txt ... Volunteer > Interlake (Lundar)
+volunteer-eastman-region.txt ..... Volunteer > Eastman (Ste. Anne)
+social-enterprise.txt ............ Social Enterprise (overview)
+social-enterprise-about.txt ...... Social Enterprise > About
+social-enterprise-room-rentals.txt  Social Enterprise > Room Rentals (Training Room, Office, Boardroom)
+social-enterprise-store.txt ...... Social Enterprise > The Second Hand Store (hours, address)
+game-rentals.txt ................. Giant Wooden Game Rentals (14 games, pricing, booking form)
+news.txt ......................... News & Events (listing, 10 recent items)
+news-pairings-pulford-2026-recap.txt ..... Article
+news-raffle-prize-winner-list-pwp2026.txt  Article
+news-pairings-2026-partners.txt .......... Article
+calendar.txt ..................... Pulford Community Calendar (embedded widget)
+contact.txt ...................... Contact (form)
+donate.txt ....................... Donate (car, Winnipeg Foundation, store, online)
+
+TOP-LEVEL NAV: Home | About | Services | Employment | Volunteer | Social Enterprise | News | Contact | Donate
+
+KEY MESSAGING
+- Vision: "An Equal and Inclusive World"
+- Mission: "To Bring Community Together to Promote and Empower People to Live a Full Life"
+- Values: Dignity, Safety, Respect, Integrity
+- Positioning: person-centered supports for adults with intellectual & developmental disabilities
+
+NOTES
+- employment/apply and volunteer apply pages are bot-protected (403); form fields not captured verbatim.
+- calendar is an embedded widget with no static event text.
+- Content above is extracted/condensed text (not full HTML). Images, exact styling, and PDFs are not included.

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pulford Studio — rentals &amp; bookings</title>
+<meta name="description" content="Concept CMS panel for the Pulford redesign — manage giant-game rental availability and incoming booking requests.">
+<script>(function(){try{var t=localStorage.getItem('pf-theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Figtree:ital,wght@0,300..700;1,300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+
+<style>
+/* ============================================================
+   PULFORD STUDIO — Daylight chrome (shared with cms.html)
+   ============================================================ */
+:root{--ui:var(--body);--mono:"JetBrains Mono",ui-monospace,monospace}
+
+body{font-family:var(--ui);font-weight:450;letter-spacing:0;line-height:1.5;font-size:14.5px}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+/* ---- shell ---- */
+.shell{display:flex;flex-direction:column;height:100dvh;overflow:hidden}
+.topbar{display:flex;align-items:center;gap:16px;height:62px;flex:none;padding:0 18px;
+  border-bottom:2px solid var(--ink);background:var(--paper)}
+.body{flex:1;min-height:0;display:grid;grid-template-columns:256px minmax(0,1fr) 336px}
+
+/* ---- top bar ---- */
+.tb-brand{display:flex;align-items:center;gap:11px;font-family:var(--display);font-weight:700;
+  font-size:17px;letter-spacing:-.01em}
+.tb-tile{display:block;flex:none;width:34px;height:36px;background:var(--spruce);
+  border:2px solid var(--spruce);border-radius:9px;overflow:hidden}
+html[data-theme="dark"] .tb-tile{border-color:color-mix(in srgb,var(--ink) 45%,transparent)}
+.tb-tile img{width:100%;height:100%;object-fit:cover}
+.tb-brand .sub{color:var(--ink-mute);font-weight:560}
+.crumb{display:flex;align-items:center;gap:9px;color:var(--ink-soft);font-size:13.5px;font-weight:500}
+.crumb svg{color:var(--ink-mute)}
+.tb-spacer{flex:1}
+.tb-ic{width:38px;height:38px;border-radius:999px;border:2px solid var(--ink);background:var(--paper-2);
+  color:var(--ink);display:grid;place-items:center;cursor:pointer;
+  transition:transform .18s var(--ease),box-shadow .18s var(--ease)}
+.tb-ic:hover{transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--ink)}
+.tb-ic:active{transform:translate(1px,1px);box-shadow:none}
+.tb-ic .moon{display:none}
+html[data-theme="dark"] .tb-ic .sun{display:none}html[data-theme="dark"] .tb-ic .moon{display:block}
+.avatar{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;
+  font-family:var(--display);font-weight:700;font-size:13px;
+  background:var(--sky);color:var(--on-color);border:2px solid var(--ink)}
+.btn-ui{font-family:var(--display);font-weight:640;font-size:14px;border-radius:999px;padding:9px 18px;
+  cursor:pointer;border:2px solid var(--ink);background:var(--paper-2);color:var(--ink);
+  display:inline-flex;align-items:center;gap:8px;text-decoration:none;
+  transition:transform .18s var(--ease),box-shadow .18s var(--ease),background .2s}
+.btn-ui:hover{transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--ink)}
+.btn-ui:active{transform:translate(1px,1px);box-shadow:none}
+
+/* ---- sidebar ---- */
+.sidebar{border-right:2px solid var(--ink);background:var(--paper-2);overflow:auto;padding:14px 12px}
+.side-search{display:flex;align-items:center;gap:9px;border:2px solid var(--line-2);border-radius:999px;
+  padding:9px 14px;color:var(--ink-mute);font-size:13px;font-weight:500;margin-bottom:16px;cursor:text;
+  transition:border-color .2s}
+.side-search:hover{border-color:var(--ink)}
+.side-search kbd{margin-left:auto;font-family:var(--mono);font-size:11px;border:1.5px solid var(--line);
+  border-radius:6px;padding:1px 6px;color:var(--ink-mute)}
+.side-group{font-family:var(--display);font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-mute);font-weight:700;padding:16px 12px 7px}
+.side-link{display:flex;align-items:center;gap:11px;padding:9px 13px;border-radius:999px;color:var(--ink-soft);
+  font-weight:520;cursor:pointer;border:2px solid transparent;text-decoration:none;
+  transition:border-color .15s,background .2s,color .15s}
+.side-link svg{width:17px;height:17px;color:var(--ink-mute);flex:none}
+.side-link:hover{border-color:var(--ink);color:var(--ink)}
+.side-link .count{margin-left:auto;font-family:var(--mono);font-size:11.5px;color:var(--ink-mute)}
+.side-link.active{background:var(--inv-bg);border-color:var(--inv-bg);color:var(--inv-fg);font-weight:600}
+.side-link.active svg{color:var(--marigold)}
+.side-link.active .count{color:color-mix(in srgb,var(--inv-fg) 65%,transparent)}
+
+/* ---- editor column ---- */
+.editor-col{overflow:auto;background:var(--paper)}
+.doc-bar{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  padding:11px 30px;border-bottom:2px solid var(--ink);
+  background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(10px)}
+.pill{display:inline-flex;align-items:center;gap:9px;font-family:var(--display);font-weight:640;
+  font-size:12px;letter-spacing:.12em;text-transform:uppercase;border-radius:999px;
+  padding:6px 14px;border:2px solid var(--ink);background:var(--paper-2);color:var(--ink)}
+.pill .dot{width:8px;height:8px;border-radius:50%;background:var(--moss)}
+.doc-meta{display:flex;align-items:center;gap:18px;color:var(--ink-mute);font-size:12.5px;font-weight:500;margin-left:auto}
+
+/* ---- right rail ---- */
+.rail{border-left:2px solid var(--ink);background:var(--paper-2);overflow:auto;padding:22px 20px}
+.rail h4{font-family:var(--display);font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-mute);font-weight:700;margin:0 0 13px}
+.seg{display:grid;grid-template-columns:repeat(2,1fr);gap:4px;background:var(--paper);border:2px solid var(--ink);
+  border-radius:14px;padding:4px}
+.seg button{font-family:var(--display);font-size:12.5px;font-weight:600;border:0;background:transparent;color:var(--ink-soft);
+  padding:7px 4px;border-radius:9px;cursor:pointer;transition:background .15s,color .15s}
+.seg button.on{background:var(--inv-bg);color:var(--inv-fg);font-weight:640}
+.chips{display:flex;flex-wrap:wrap;gap:7px;align-items:center}
+.chip-t{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:12px;font-weight:500;
+  border:2px solid var(--ink);border-radius:999px;padding:5px 11px;color:var(--ink);background:var(--paper)}
+.chip-t .x{font-family:var(--ui);color:var(--ink-mute);cursor:pointer;font-weight:700}
+.chip-t .x:hover{color:var(--clay)}
+
+/* ---- mobile ---- */
+.menu-btn{display:none}
+@media (max-width:1180px){
+  .body{grid-template-columns:256px minmax(0,1fr)}
+  .rail{grid-column:1/-1;border-left:0;border-top:2px solid var(--ink)}
+}
+@media (max-width:820px){
+  .body{grid-template-columns:1fr}
+  .menu-btn{display:grid}
+  .sidebar{position:fixed;z-index:40;top:62px;bottom:0;left:0;width:268px;transform:translateX(-100%);
+    transition:transform .3s var(--ease);box-shadow:var(--shadow)}
+  .sidebar.open{transform:none}
+  .doc-meta{display:none}
+}
+
+/* ============================================================
+   RENTALS & BOOKINGS view
+   ============================================================ */
+.rentals-canvas{max-width:780px;margin:0 auto;padding:28px 30px 120px}
+.rentals-intro{color:var(--ink-soft);font-size:14px;margin-bottom:22px;max-width:62ch}
+.rental-row{border:2px solid var(--ink);border-radius:16px;background:var(--paper-2);
+  padding:15px 18px;margin-bottom:13px;transition:opacity .2s}
+.rental-row.off{opacity:.6}
+.rental-h{display:flex;align-items:center;gap:14px}
+.rental-h b{font-family:var(--display);font-weight:680;font-size:16.5px}
+.rental-h .price{font-family:var(--mono);font-size:11.5px;color:var(--ink-mute)}
+.seg-list{margin-left:auto;width:206px;flex:none}
+.rental-dates{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:13px;
+  padding-top:13px;border-top:2px dashed var(--line)}
+.rental-dates .chips{flex:1;min-width:0}
+.rl-add{width:152px;flex:none;font-family:var(--ui);font-size:12.5px;color:var(--ink);background:var(--paper);
+  border:2px solid var(--line-2);border-radius:10px;padding:7px 10px;outline:none;
+  transition:border-color .2s,box-shadow .2s}
+.rl-add:focus{border-color:var(--ink);box-shadow:0 0 0 3px color-mix(in srgb,var(--marigold) 38%,transparent)}
+.rl-none{color:var(--ink-mute);font-size:12.5px}
+.bk-card{border:2px solid var(--ink);border-radius:14px;background:var(--paper);padding:13px 14px;margin-bottom:12px}
+.bk-card .pill{font-size:10.5px;padding:4px 11px;margin-bottom:9px}
+.bk-new{background:var(--marigold);border-color:var(--spruce);color:var(--on-color)}
+.bk-new .dot{background:var(--spruce)}
+.bk-staff{background:var(--paper-2);color:var(--ink-mute)}
+.bk-name{font-family:var(--display);font-weight:640;font-size:15px}
+.bk-meta{font-size:12.5px;color:var(--ink-soft);margin-top:3px}
+.bk-games{font-size:13px;color:var(--ink-soft);margin-top:5px}
+.bk-email{font-family:var(--mono);font-size:11px;color:var(--ink-mute);margin-top:5px;word-break:break-all}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- ===== TOP BAR ===== -->
+  <header class="topbar">
+    <button class="tb-ic menu-btn" id="menuBtn" aria-label="Menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+    <a class="tb-brand" href="index.html"><span class="tb-tile"><img src="assets/art/pf-icon.png" alt=""></span><span>Pulford <span class="sub">Studio</span></span></a>
+    <span class="crumb"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m9 18 6-6-6-6"/></svg> Social Enterprise <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m9 18 6-6-6-6"/></svg> <span style="color:var(--fg)">Rentals &amp; Bookings</span></span>
+    <span class="tb-spacer"></span>
+    <button class="tb-ic theme-toggle" aria-label="Toggle theme" title="Light / dark">
+      <svg class="sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M19.4 4.6l-1.8 1.8M6.4 17.6l-1.8 1.8"/></svg>
+      <svg class="moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.3 6.3 0 0 0 10.5 10.5z"/></svg>
+    </button>
+    <a class="btn-ui" href="shop.html" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="2.6"/></svg> View shop</a>
+    <span class="avatar" title="Renée Sauvé">RS</span>
+  </header>
+
+  <div class="body">
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar" id="sidebar">
+      <div class="side-search"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg> Search content <kbd>/</kbd></div>
+
+      <div class="side-group">Content</div>
+      <div class="side-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg> Pages <span class="count">9</span></div>
+      <a class="side-link" href="cms.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 5h16M4 5v14a1 1 0 0 0 1 1h11l4-4V5"/><path d="M8 10h8M8 14h5"/></svg> News &amp; Stories <span class="count">23</span></a>
+      <div class="side-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg> Services <span class="count">4</span></div>
+      <div class="side-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0"/><path d="M16 6.5a3 3 0 0 1 0 5.6M16.5 20a5.5 5.5 0 0 0-3-4.9"/></svg> Team &amp; Board <span class="count">14</span></div>
+      <div class="side-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg> Events <span class="count">6</span></div>
+      <div class="side-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8a3 3 0 0 1 6 0"/></svg> Social Enterprise <span class="count">3</span></div>
+      <a class="side-link active" href="rentals.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M8 14h3M13 14h3"/></svg> Rentals &amp; Bookings <span class="count">14</span></a>
+
+      <div class="side-group">Library</div>
+      <div class="side-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m4 18 5-4 4 3 3-2 4 3"/></svg> Media <span class="count">312</span></div>
+      <div class="side-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h4"/></svg> Form submissions <span class="count">7</span></div>
+
+      <div class="side-group">Site</div>
+      <div class="side-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 6h16M4 12h16M4 18h16"/></svg> Navigation</div>
+      <div class="side-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l2-1.5-2-3.5-2.3 1a7 7 0 0 0-1.7-1l-.3-2.5h-4l-.3 2.5a7 7 0 0 0-1.7 1l-2.3-1-2 3.5L4.1 11a7 7 0 0 0 0 2l-2 1.5 2 3.5 2.3-1a7 7 0 0 0 1.7 1l.3 2.5h4l.3-2.5a7 7 0 0 0 1.7-1l2.3 1 2-3.5-2-1.5a7 7 0 0 0 .1-1Z"/></svg> Settings</div>
+    </aside>
+
+    <!-- ===== RENTALS LIST ===== -->
+    <main class="editor-col">
+      <div class="doc-bar">
+        <span class="pill"><span class="dot"></span> <span id="listedCount">14</span> of 14 listed</span>
+        <div class="doc-meta"><span>Changes show on the public shop instantly</span></div>
+      </div>
+      <div class="rentals-canvas">
+        <p class="rentals-intro">Toggle a game to <strong>Unavailable</strong> to pull it from the shop, or block specific dates that are already spoken for. The public site reads this the moment you change it. Booking requests from the website land in the panel on the right.</p>
+        <div id="rentalList"></div>
+      </div>
+    </main>
+
+    <!-- ===== BOOKINGS RAIL ===== -->
+    <aside class="rail">
+      <h4>Recent bookings</h4>
+      <div id="bkList"></div>
+    </aside>
+  </div>
+</div>
+
+<script src="assets/app.js"></script>
+<script src="assets/rentals.js"></script>
+<script>
+(function(){
+  if(!window.PF) return;
+  PF.seedIfEmpty();
+  var listEl=document.getElementById('rentalList');
+  var railEl=document.getElementById('bkList');
+  var countEl=document.getElementById('listedCount');
+  var today=PF.today();
+
+  function esc(s){return (s||'').replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+
+  function renderList(){
+    var s=PF.getStore(), listed=0;
+    listEl.innerHTML=PF.IDS.map(function(id){
+      var g=s.games[id], game=PF.GAMES[id];
+      if(g.listed) listed++;
+      var chips=g.blocked.slice().sort().map(function(d){
+        return '<span class="chip-t" data-d="'+d+'">'+d+' <span class="x" title="Unblock">×</span></span>';
+      }).join('');
+      if(!chips) chips='<span class="rl-none">No blocked dates</span>';
+      return '<div class="rental-row'+(g.listed?'':' off')+'" data-game="'+id+'">'+
+        '<div class="rental-h"><b>'+esc(game.name)+'</b>'+
+          '<span class="price num">$'+game.wd+' / $'+game.we+'</span>'+
+          '<span class="seg seg-list">'+
+            '<button data-v="on" class="'+(g.listed?'on':'')+'">Listed</button>'+
+            '<button data-v="off" class="'+(g.listed?'':'on')+'">Unavailable</button>'+
+          '</span></div>'+
+        '<div class="rental-dates"><div class="chips">'+chips+'</div>'+
+          '<input type="date" class="rl-add" min="'+today+'" aria-label="Block a date for '+esc(game.name)+'"></div>'+
+      '</div>';
+    }).join('');
+    if(countEl) countEl.textContent=listed;
+  }
+
+  function renderBookings(){
+    var bk=PF.getStore().bookings.slice().reverse();
+    if(!bk.length){ railEl.innerHTML='<p class="rl-none">No booking requests yet.</p>'; return; }
+    railEl.innerHTML=bk.map(function(b){
+      var names=b.games.map(function(id){return PF.GAMES[id]?PF.GAMES[id].name:id;}).join(', ');
+      var dur=(b.days?(b.days+1)+' days':'1 day');
+      var flag=b.source==='web'
+        ? '<span class="pill bk-new"><span class="dot"></span> New · web</span>'
+        : '<span class="pill bk-staff">Staff entry</span>';
+      return '<div class="bk-card">'+flag+
+        '<div class="bk-name">'+esc(b.name||'—')+'</div>'+
+        '<div class="bk-meta num">'+b.date+' · '+dur+' · '+b.games.length+' game'+(b.games.length>1?'s':'')+'</div>'+
+        '<div class="bk-games">'+esc(names)+'</div>'+
+        '<div class="bk-email">'+esc(b.email)+'</div>'+
+      '</div>';
+    }).join('');
+  }
+
+  function renderAll(){ renderList(); renderBookings(); }
+
+  listEl.addEventListener('click',function(e){
+    var row=e.target.closest('.rental-row'); if(!row) return;
+    var id=row.dataset.game;
+    var seg=e.target.closest('.seg-list button');
+    if(seg){ PF.setListed(id, seg.dataset.v==='on'); renderAll(); return; }
+    var x=e.target.closest('.chip-t .x');
+    if(x){ PF.unblockDate(id, e.target.closest('.chip-t').dataset.d); renderAll(); return; }
+  });
+  listEl.addEventListener('change',function(e){
+    var add=e.target.closest('.rl-add'); if(!add||!add.value) return;
+    PF.blockSingle(e.target.closest('.rental-row').dataset.game, add.value); renderAll();
+  });
+
+  PF.onChange(renderAll);   // live when a booking lands from another tab
+  renderAll();
+
+  // mobile sidebar (mirrors cms.html)
+  var mb=document.getElementById('menuBtn');
+  if(mb) mb.addEventListener('click',function(){document.getElementById('sidebar').classList.toggle('open');});
+})();
+</script>
+</body>
+</html>

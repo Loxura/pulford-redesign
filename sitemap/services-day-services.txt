@@ -1,0 +1,22 @@
+URL: https://www.pulford.ca/services/day-services
+PAGE: Services > Day Services
+
+=== MAIN CONTENT ===
+Breadcrumb: Home > Services > Day Services
+
+"Our Day Service is community-based and centered upon each person's wants and needs. We take into consideration their unique goals and abilities. These supports are provided in a variety of areas such as: locating and maintaining volunteer and work placement, personal recreation, participating in social enterprise programming, physiotherapy, exercise, speech pathology development, healthy living choices, and any other option that aims at increasing independence."
+
+"All supports are provided so that each person participates in productive and meaningful days in the community."
+
+"In Ste. Anne, Manitoba we provide jobs to individuals in the Day Service through a small recycling plant, a second hand store and a work crew. These are all owned and operated by Pulford, and seek to develop the people we supported by teaching them transferable skills."
+
+Other Services: Supported Independent Living, Support for Families, Day Services, Residential
+
+Call-to-Action: "Discover How You Can Help" with "Learn More" button
+
+=== FOOTER ===
+1146 Waverley St Unit 5, Winnipeg, MB R3T 0P4 | (204) 284-2255
+Charity number: 119106276RR0001
+Newsletter subscription form
+Land Acknowledgment statement
+Copyright / Verda Design

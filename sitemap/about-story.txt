@@ -1,0 +1,30 @@
+URL: https://www.pulford.ca/about/story
+PAGE: About > Our Story
+
+=== MAIN CONTENT ===
+Page Title: Our Story
+Breadcrumb: Home > About > Our Story
+
+"Pulford Community Living Services Inc., a not-for-profit community based organization, was established in November 1986 in response to the closing of a guest home that threatened to leave several people homeless."
+
+"On December 1, 1986, three people moved from the guest home into their own home on Fleet Avenue, assisted by Pulford."
+
+"Since 1986, Pulford has continuously provided housing and supports to persons with a developmental disability."
+
+Vision Statement: "An Equal and Inclusive World"
+
+Mission Statement: "To Bring Community Together to Promote and Empower People to Live a Full Life"
+
+Values Section:
+- Dignity: "Everyone has Value and Worth"
+- Safety: "A Culture of Security, Protection and Comfort"
+- Respect: "Honouring Diversity"
+- Integrity: "Knowing and Doing the Right thing"
+
+=== FOOTER ===
+Address: 1146 Waverley St Unit 5, Winnipeg, MB R3T 0P4
+Phone: (204) 284-2255
+Charity Number: 119106276RR0001
+Newsletter subscription option
+Land acknowledgment statement
+Copyright notice

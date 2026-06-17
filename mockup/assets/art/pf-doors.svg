@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 296" style="color:#22372E"
+     role="img" aria-label="An arched double doorway, doors ajar, warm light behind">
+  <!-- Remaster of loader/assets/doors.svg: chunkier strokes, panelled leaves,
+       knobs, daylight glow. #leaf-l / #leaf-r hinge at the outer jambs —
+       animate with rotateY (transform-box:fill-box). -->
+  <defs>
+    <radialGradient id="dr-glow" cx="50%" cy="55%" r="60%">
+      <stop offset="0%"  stop-color="var(--mg, #F2A93B)" stop-opacity=".9"/>
+      <stop offset="60%" stop-color="var(--mg, #F2A93B)" stop-opacity=".3"/>
+      <stop offset="100%" stop-color="var(--mg, #F2A93B)" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="dr-open"><path d="M52 280 V136 a78 78 0 0 1 156 0 V280 Z"/></clipPath>
+  </defs>
+
+  <!-- light + rays behind the leaves -->
+  <g clip-path="url(#dr-open)">
+    <rect x="44" y="50" width="172" height="232" fill="url(#dr-glow)"/>
+    <g stroke="var(--mg, #F2A93B)" stroke-width="4" stroke-linecap="round" opacity=".55">
+      <path d="M130 96 V70"/>
+      <path d="M94 112 L78 92"/>
+      <path d="M166 112 L182 92"/>
+    </g>
+  </g>
+
+  <g id="leaf-l">
+    <path d="M130 58 a78 78 0 0 0 -78 78 V280 H130 Z"
+          fill="var(--leaf, #FAF3E4)" stroke="currentColor" stroke-width="6" stroke-linejoin="round"/>
+    <g fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round">
+      <path d="M70 196 V128 a34 34 0 0 1 44 -10 V196 Z"/>
+      <rect x="70" y="214" width="44" height="48" rx="8"/>
+    </g>
+    <circle cx="118" cy="196" r="5.5" fill="var(--mg, #F2A93B)" stroke="currentColor" stroke-width="3"/>
+  </g>
+
+  <g id="leaf-r">
+    <path d="M130 58 a78 78 0 0 1 78 78 V280 H130 Z"
+          fill="var(--leaf, #FAF3E4)" stroke="currentColor" stroke-width="6" stroke-linejoin="round"/>
+    <g fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round">
+      <path d="M190 196 V128 a34 34 0 0 0 -44 -10 V196 Z"/>
+      <rect x="146" y="214" width="44" height="48" rx="8"/>
+    </g>
+    <circle cx="142" cy="196" r="5.5" fill="var(--mg, #F2A93B)" stroke="currentColor" stroke-width="3"/>
+  </g>
+
+  <!-- frame + threshold -->
+  <path d="M46 284 V136 a84 84 0 0 1 168 0 V284" fill="none" stroke="currentColor" stroke-width="12"/>
+  <rect x="24" y="280" width="212" height="13" rx="6.5" fill="currentColor"/>
+</svg>

@@ -1,0 +1,55 @@
+URL: https://www.pulford.ca/game-rentals
+PAGE: Giant Wooden Game Rentals
+
+=== MAIN CONTENT ===
+Giant Wooden Game Rentals
+"These hand-crafted, giant wooden games are of excellent build quality and provide hours of fun for everyone."
+Perfect for birthdays, socials, weddings, corporate events and anytime you're looking to have fun. Premium products at non-premium prices.
+"When you rent our yard games, you help support our organization's Social Enterprise growth."
+Employment support for adults with intellectual disabilities through meaningful tasks.
+Contact: Daniel.Lajoie@pulford.ca
+
+Games Listed:
+- Jenga - 45 wooden blocks, wooden carrying case. "Giant Jenga is the life-sized version of the popular tabletop stacking game that can rise to over 5ft high."
+- Giant Tic-Tac-Toe - Four wooden boards, 5 X's and 4 O's
+- Connect 4 - Giant grid with red and brown discs. "Nearly 4ft long by 4ft tall by 2ft wide, a truck is recommended for transportation."
+- Cornhole Toss - Target board, 3 red and 3 grey bean bags
+- Ladder Golf - Wooden bolas and ladder rungs. "First to reach 21 wins the game!"
+- Giant Yardzee - 5 wooden block dice and carrying pail
+- Giant Dominoes - 24 game pieces and carrying box
+- Washer Toss - Carrying case and 6 plastic rings
+- Bocce - Professional set in carrying case
+- Cliff Hanger - One game stand and 4 bean bags
+- Ball Drop - Plastic balls, sticks, and game
+- Target Football Toss - Three footballs and wooden scoring stand
+- Ring Toss - Playing grid and four rings
+- Golf Pong - Grid, 10 cups, 12 plastic golf balls. "Golf clubs are not included, enabling you to create an ideal golf pong experience"
+
+Pricing Table (Game | Weekday | Extra Day | Weekend):
+- Jenga | $45 | $15 | $60
+- Tic Tac Toe | $25 | $15 | $40
+- Connect 4 | $60 | $15 | $75
+- Cornhole Toss | $45 | $15 | $60
+- Ladder Golf | $50 | $15 | $65
+- Yardzee | $40 | $15 | $55
+- Dominos | $25 | $15 | $40
+- Washer Toss | $35 | $15 | $50
+- Bocce | $40 | $15 | $55
+- Cliff Hanger | $45 | $15 | $60
+- Ball Drop | $40 | $15 | $55
+- Target Football Toss | $45 | $15 | $60
+- Ring Toss | $25 | $15 | $40
+- Golf Pong | $45 | $15 | $60
+
+"Due to limited availability we ask that you book as far in advance as possible"
+6+ Games: 5% off
+Extra days: $15 per game
+
+Booking Form Fields: Name, Email, Phone, Type of Event, Requested Date, Requested Time, Games (checkbox list), Notes, CAPTCHA
+
+=== FOOTER ===
+1146 Waverley St Unit 5, Winnipeg, MB R3T 0P4
+(204) 284-2255
+Canadian Registered Charity Number: 119106276RR0001
+Land Acknowledgment statement
+Copyright / Web Design: Verda Design

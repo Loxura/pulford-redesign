@@ -1,0 +1,15 @@
+URL: https://www.pulford.ca/calendar
+PAGE: Pulford Community Calendar
+
+=== MAIN CONTENT ===
+Pulford Community Calendar
+"See what's happening at Pulford!"
+
+NOTE: This is an interactive/embedded calendar widget. No specific events with dates are rendered as static text on the page.
+
+=== FOOTER ===
+1146 Waverley St Unit 5, Winnipeg, MB R3T 0P4
+(204) 284-2255
+Canadian Registered Charity Number: 119106276RR0001
+Land Acknowledgment statement
+Copyright Pulford Community Living Services

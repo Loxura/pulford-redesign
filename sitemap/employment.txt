@@ -1,0 +1,33 @@
+URL: https://www.pulford.ca/employment
+PAGE: Employment
+
+=== MAIN CONTENT ===
+Breadcrumb: Home > Employment
+Employment
+
+"Pulford is committed to working with its employees to ensure that they are knowledgeable and well equipped to carry out their responsibilities."
+
+Employment with PCLS Inc.
+"Are you wanting to make a difference? Don't know where to go, then look no further. Pulford Community Living Services Inc., is a dynamic not-for-profit organization that provides many employment opportunities. It is essential that potential employees not only demonstrate a strong commitment to the values and beliefs identified in Pulford's mission, but are also dedicated to high standards of excellence and quality in providing supports to people with a developmental disability. In turn, Pulford is committed to working with its employees to ensure that they are knowledgeable and well equipped to carry out their responsibilities."
+
+Our Employees Enjoy:
+- Competitive Compensation
+- Health and Dental Benefits
+- Company Pension Plan
+- New Employee Orientation
+- On-going Training
+- Opportunities for Advancement
+- Flexible Work Schedules
+- Paid Mileage
+- Referral Bonus
+- "Family" culture
+
+CTA Button: "Discover How You Can Help - Learn More" (links to /donate)
+
+=== FOOTER ===
+1146 Waverley St Unit 5, Winnipeg, MB R3T 0P4
+(204) 284-2255
+Canadian Registered Charity Number: 119106276RR0001
+Newsletter signup: Email Address, First Name fields with Submit button
+Land Acknowledgment statement
+Copyright / Winnipeg Web Design by Verda Design

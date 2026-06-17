@@ -1,0 +1,25 @@
+URL: https://www.pulford.ca/volunteer/winnipeg
+PAGE: Volunteer > Winnipeg
+
+=== MAIN CONTENT ===
+Page title: Winnipeg
+Subtitle: "Current volunteer postings in Winnipeg, Manitoba."
+Breadcrumb: Home > Volunteer > Winnipeg
+
+How To Help
+"Thank you for thinking about donating your time with us. To apply for a volunteer position, please fill out an application form."
+Step 1: "Please download the application form and fill out digitally. CLICK HERE to download Online Application Form"
+Step 2: "Please fill out your contact info in the form below"
+Step 3: "Upload both your resume either in word or PDF format, and your filled out application form you downloaded and filled out in to appropriate upload button named 'Choose File'. We require both documents for employment."
+
+Postings Status: "No current postings"
+
+Locations: Winnipeg, Interlake Region, Eastman Region
+CTA: Discover How You Can Help - Learn More
+
+=== FOOTER ===
+1146 Waverley St Unit 5, Winnipeg, MB R3T 0P4 | (204) 284-2255
+Canadian Registered Charity Number: 119106276RR0001
+Newsletter Signup: "Register for our newsletter! You'll be the first to hear about our fundraisers, exciting changes and more." (Email Address required, First Name, Submit)
+Land Acknowledgment statement
+Copyright / Winnipeg Web Design by Verda Design
