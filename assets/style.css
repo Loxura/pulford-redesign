@@ -562,7 +562,7 @@ html[data-theme="dark"] .theme-toggle .moon{display:block}
   background:var(--marigold);border:2px solid var(--spruce);color:var(--spruce);
   font-weight:700;font-size:14px}
 .shop-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,1.6vw,22px)}
-.game-card{display:flex;flex-direction:column;gap:10px;border:2px solid var(--ink);
+.game-card{position:relative;display:flex;flex-direction:column;gap:10px;border:2px solid var(--ink);
   border-radius:var(--r-card);background:var(--paper-2);padding:18px 18px 20px;
   transition:transform .22s var(--ease),box-shadow .22s var(--ease)}
 .game-card:hover{transform:translateY(-5px);box-shadow:var(--pop-sm)}
@@ -845,7 +845,7 @@ html[data-theme="dark"] .foot-col a:hover{color:#B26A1B}
    product date-check. Driven by assets/rentals.js (`pf-rentals`).
    ============================================================== */
 .game-tile{position:relative}
-.avail-badge{position:absolute;top:10px;left:10px;z-index:2;
+.avail-badge{position:absolute;top:14px;left:50%;transform:translateX(-50%);z-index:3;
   font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase;
   color:var(--cream);background:var(--clay);border:2px solid var(--spruce);border-radius:999px;
   padding:5px 12px;box-shadow:3px 3px 0 var(--spruce)}
