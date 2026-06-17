@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Pulford — an open door">
+  <rect x="14" y="14" width="484" height="484" rx="96" fill="#F2A93B" stroke="#22372E" stroke-width="20"/>
+  <g transform="translate(131,106) scale(1.25)" fill="none" stroke="#22372E" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M44 226 V30 H156 V226"/>
+    <path d="M30 226 H170"/>
+    <path d="M44 30 L96 16 V214 L44 226"/>
+    <circle cx="58" cy="124" r="4.5" fill="#22372E"/>
+    <path d="M118 60 L150 60"/>
+    <path d="M118 92 L150 92"/>
+    <path d="M118 124 L150 124"/>
+    <path d="M118 156 L150 156"/>
+    <path d="M118 188 L150 188"/>
+  </g>
+</svg>
