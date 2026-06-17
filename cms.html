@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pulford Studio — content</title>
+<meta name="description" content="Concept CMS panel for the Pulford redesign — TipTap rich-text editor.">
+<script>(function(){try{var t=localStorage.getItem('pf-theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Figtree:ital,wght@0,300..700;1,300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+
+<!-- TipTap (+ ProseMirror) pinned through esm.sh; the import map dedupes the core so extensions share one instance -->
+<script type="importmap">
+{
+  "imports": {
+    "@tiptap/core": "https://esm.sh/@tiptap/core@2",
+    "@tiptap/pm/": "https://esm.sh/@tiptap/pm@2/",
+    "@tiptap/starter-kit": "https://esm.sh/@tiptap/starter-kit@2?external=@tiptap/core,@tiptap/pm",
+    "@tiptap/extension-link": "https://esm.sh/@tiptap/extension-link@2?external=@tiptap/core,@tiptap/pm",
+    "@tiptap/extension-image": "https://esm.sh/@tiptap/extension-image@2?external=@tiptap/core,@tiptap/pm",
+    "@tiptap/extension-placeholder": "https://esm.sh/@tiptap/extension-placeholder@2?external=@tiptap/core,@tiptap/pm"
+  }
+}
+</script>
+
+<style>
+/* ============================================================
+   PULFORD STUDIO — Daylight chrome
+   The Studio wears the site's poster language: Bricolage +
+   Figtree, 2px spruce borders, pop shadows, pill controls,
+   marigold accents. The canvas matches the published article.
+   ============================================================ */
+:root{--ui:var(--body);--mono:"JetBrains Mono",ui-monospace,monospace}
+
+body{font-family:var(--ui);font-weight:450;letter-spacing:0;line-height:1.5;font-size:14.5px}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+/* ---- shell ---- */
+.shell{display:flex;flex-direction:column;height:100dvh;overflow:hidden}
+.topbar{display:flex;align-items:center;gap:16px;height:62px;flex:none;padding:0 18px;
+  border-bottom:2px solid var(--ink);background:var(--paper)}
+.body{flex:1;min-height:0;display:grid;grid-template-columns:256px minmax(0,1fr) 336px}
+
+/* ---- top bar ---- */
+.tb-brand{display:flex;align-items:center;gap:11px;font-family:var(--display);font-weight:700;
+  font-size:17px;letter-spacing:-.01em}
+.tb-tile{display:block;flex:none;width:34px;height:36px;background:var(--spruce);
+  border:2px solid var(--spruce);border-radius:9px;overflow:hidden}
+html[data-theme="dark"] .tb-tile{border-color:color-mix(in srgb,var(--ink) 45%,transparent)}
+.tb-tile img{width:100%;height:100%;object-fit:cover}
+.tb-brand .sub{color:var(--ink-mute);font-weight:560}
+.crumb{display:flex;align-items:center;gap:9px;color:var(--ink-soft);font-size:13.5px;font-weight:500}
+.crumb svg{color:var(--ink-mute)}
+.tb-spacer{flex:1}
+.save{display:inline-flex;align-items:center;gap:8px;color:var(--ink-mute);font-size:13px;font-weight:500}
+.save .dot{width:9px;height:9px;border-radius:50%;background:var(--moss);
+  border:1.5px solid var(--ink);transition:background .3s}
+.save.dirty .dot{background:var(--clay)}
+.tb-ic{width:38px;height:38px;border-radius:999px;border:2px solid var(--ink);background:var(--paper-2);
+  color:var(--ink);display:grid;place-items:center;cursor:pointer;
+  transition:transform .18s var(--ease),box-shadow .18s var(--ease)}
+.tb-ic:hover{transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--ink)}
+.tb-ic:active{transform:translate(1px,1px);box-shadow:none}
+.tb-ic .moon{display:none}
+html[data-theme="dark"] .tb-ic .sun{display:none}html[data-theme="dark"] .tb-ic .moon{display:block}
+.avatar{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;
+  font-family:var(--display);font-weight:700;font-size:13px;
+  background:var(--sky);color:var(--on-color);border:2px solid var(--ink)}
+.btn-ui{font-family:var(--display);font-weight:640;font-size:14px;border-radius:999px;padding:9px 18px;
+  cursor:pointer;border:2px solid var(--ink);background:var(--paper-2);color:var(--ink);
+  display:inline-flex;align-items:center;gap:8px;
+  transition:transform .18s var(--ease),box-shadow .18s var(--ease),background .2s}
+.btn-ui:hover{transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--ink)}
+.btn-ui:active{transform:translate(1px,1px);box-shadow:none}
+.btn-pub{background:var(--marigold);border-color:var(--spruce);color:var(--on-color);
+  box-shadow:3px 3px 0 var(--spruce)}
+.btn-pub:hover{box-shadow:5px 5px 0 var(--spruce)}
+.btn-pub:active{box-shadow:1px 1px 0 var(--spruce)}
+.btn-pub .door-ico{width:17px;height:17px}
+.btn-pub .door-ico .light,.btn-pub .door-ico .knob{fill:var(--cream)}
+
+/* ---- sidebar ---- */
+.sidebar{border-right:2px solid var(--ink);background:var(--paper-2);overflow:auto;padding:14px 12px}
+.side-search{display:flex;align-items:center;gap:9px;border:2px solid var(--line-2);border-radius:999px;
+  padding:9px 14px;color:var(--ink-mute);font-size:13px;font-weight:500;margin-bottom:16px;cursor:text;
+  transition:border-color .2s}
+.side-search:hover{border-color:var(--ink)}
+.side-search kbd{margin-left:auto;font-family:var(--mono);font-size:11px;border:1.5px solid var(--line);
+  border-radius:6px;padding:1px 6px;color:var(--ink-mute)}
+.side-group{font-family:var(--display);font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-mute);font-weight:700;padding:16px 12px 7px}
+.side-link{display:flex;align-items:center;gap:11px;padding:9px 13px;border-radius:999px;color:var(--ink-soft);
+  font-weight:520;cursor:pointer;border:2px solid transparent;
+  transition:border-color .15s,background .2s,color .15s}
+.side-link svg{width:17px;height:17px;color:var(--ink-mute);flex:none}
+.side-link:hover{border-color:var(--ink);color:var(--ink)}
+.side-link .count{margin-left:auto;font-family:var(--mono);font-size:11.5px;color:var(--ink-mute)}
+.side-link.active{background:var(--inv-bg);border-color:var(--inv-bg);color:var(--inv-fg);font-weight:600}
+.side-link.active svg{color:var(--marigold)}
+.side-link.active .count{color:color-mix(in srgb,var(--inv-fg) 65%,transparent)}
+
+/* ---- editor column ---- */
+.editor-col{overflow:auto;background:var(--paper)}
+.doc-bar{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  padding:11px 30px;border-bottom:2px solid var(--ink);
+  background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(10px)}
+.pill{display:inline-flex;align-items:center;gap:9px;font-family:var(--display);font-weight:640;
+  font-size:12px;letter-spacing:.12em;text-transform:uppercase;border-radius:999px;
+  padding:6px 14px;border:2px solid var(--ink);background:var(--paper-2);color:var(--ink)}
+.pill .dot{width:8px;height:8px;border-radius:50%;background:var(--clay)}
+.doc-meta{display:flex;align-items:center;gap:18px;color:var(--ink-mute);font-size:12.5px;font-weight:500;margin-left:auto}
+.doc-canvas{max-width:760px;margin:0 auto;padding:40px 30px 120px}
+.title-input{width:100%;border:0;background:transparent;color:var(--ink);font-family:var(--display);
+  font-weight:700;font-size:clamp(30px,3.6vw,46px);letter-spacing:-.03em;line-height:1.0;resize:none;outline:none}
+.title-input::placeholder{color:var(--line-2)}
+.slug-row{display:flex;align-items:center;gap:2px;margin:14px 0 26px;font-family:var(--mono);font-size:13px;color:var(--ink-mute)}
+.slug-row .base{color:var(--line-2)}
+.slug-row input{font-family:var(--mono);font-size:13px;color:var(--accent-ink);background:transparent;border:0;outline:none;
+  border-bottom:2px dashed var(--line-2);padding:2px 2px}
+
+/* ---- TipTap toolbar ---- */
+.tt-toolbar{position:sticky;top:52px;z-index:4;display:flex;align-items:center;gap:3px;flex-wrap:wrap;
+  padding:7px;margin-bottom:12px;border:2px solid var(--ink);border-radius:18px;background:var(--paper-2);
+  box-shadow:var(--pop-sm)}
+.tt-toolbar .sep{width:2px;height:22px;background:var(--line);border-radius:2px;margin:0 5px}
+.tt-btn{min-width:34px;height:34px;padding:0 9px;border:0;border-radius:999px;background:transparent;color:var(--ink-soft);
+  cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:4px;
+  font-family:var(--display);font-size:14px;font-weight:700;transition:background .15s,color .15s}
+.tt-btn svg{width:17px;height:17px}
+.tt-btn:hover{background:color-mix(in srgb,var(--ink) 8%,transparent);color:var(--ink)}
+.tt-btn.is-active{background:var(--marigold);color:var(--on-color)}
+.tt-btn[data-a="italic"]{font-style:italic}
+.tt-btn .lvl{font-size:10px;font-weight:700;align-self:flex-end;margin-bottom:3px}
+
+/* ---- editable canvas (matches the published article) ---- */
+#editor{font-family:var(--body);font-size:17.5px;line-height:1.68;color:var(--ink-soft)}
+#editor:focus{outline:none}
+.ProseMirror:focus{outline:none}
+#editor h2{font-family:var(--display);color:var(--ink);font-weight:680;font-size:1.5em;letter-spacing:-.02em;
+  line-height:1.05;margin:1.4em 0 .5em}
+#editor h3{font-family:var(--display);color:var(--ink);font-weight:660;font-size:1.2em;letter-spacing:-.015em;margin:1.3em 0 .4em}
+#editor p{margin:0 0 1.05em}
+#editor a{color:var(--accent-ink);text-decoration:underline;text-underline-offset:3px;
+  text-decoration-thickness:2px;text-decoration-color:color-mix(in srgb,var(--marigold) 65%,transparent)}
+#editor strong{color:var(--ink);font-weight:650}
+#editor ul,#editor ol{margin:0 0 1.05em;padding-left:1.4em}
+#editor li{margin:.3em 0}
+#editor li::marker{color:var(--clay);font-weight:700}
+#editor blockquote{margin:1.4em 0;padding:14px 20px;border:2px solid var(--ink);border-radius:16px;
+  border-left:10px solid var(--marigold);
+  font-family:var(--display);font-weight:560;font-size:1.12em;line-height:1.4;color:var(--ink);
+  background:var(--paper-2)}
+#editor img{width:100%;border:2px solid var(--ink);border-radius:18px;margin:.6em 0;filter:var(--photo)}
+#editor .is-editor-empty:first-child::before{content:attr(data-placeholder);color:var(--line-2);float:left;height:0;pointer-events:none}
+.cap{font-size:.8em;color:var(--ink-mute);font-weight:500;margin-top:-.4em}
+
+/* ---- right rail ---- */
+.rail{border-left:2px solid var(--ink);background:var(--paper-2);overflow:auto;padding:22px 20px}
+.rail h4{font-family:var(--display);font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-mute);font-weight:700;margin:28px 0 13px}.rail h4:first-child{margin-top:0}
+.fld{margin-bottom:15px}
+.fld label{display:block;font-size:12.5px;font-weight:600;color:var(--ink-soft);margin-bottom:6px}
+.fld input[type=text],.fld input[type=date],.fld select,.fld textarea{width:100%;font-family:var(--ui);font-size:13.5px;
+  color:var(--ink);background:var(--paper);border:2px solid var(--line-2);border-radius:12px;padding:9px 12px;outline:none;
+  transition:border-color .2s,box-shadow .2s}
+.fld textarea{resize:vertical;min-height:74px;line-height:1.45}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--ink);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--marigold) 38%,transparent)}
+.fld .help{display:flex;justify-content:space-between;color:var(--ink-mute);font-size:11.5px;margin-top:5px}
+.seg{display:grid;grid-template-columns:repeat(2,1fr);gap:4px;background:var(--paper);border:2px solid var(--ink);
+  border-radius:14px;padding:4px}
+.seg button{font-family:var(--display);font-size:12.5px;font-weight:600;border:0;background:transparent;color:var(--ink-soft);
+  padding:7px 4px;border-radius:9px;cursor:pointer;transition:background .15s,color .15s}
+.seg button.on{background:var(--inv-bg);color:var(--inv-fg);font-weight:640}
+.thumb{position:relative;border-radius:14px;overflow:hidden;border:2px solid var(--ink);aspect-ratio:16/10;
+  box-shadow:var(--pop-sm)}
+.thumb img{width:100%;height:100%;object-fit:cover;filter:var(--photo)}
+.thumb .swap{position:absolute;inset:auto 8px 8px auto;font-family:var(--display);font-size:11.5px;font-weight:640;
+  padding:5px 12px;border-radius:999px;border:2px solid var(--cream);
+  background:color-mix(in srgb,var(--spruce) 72%,transparent);color:var(--cream);cursor:pointer;backdrop-filter:blur(4px)}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip-t{display:inline-flex;align-items:center;gap:7px;font-family:var(--display);font-size:12.5px;font-weight:600;
+  border:2px solid var(--ink);border-radius:999px;padding:5px 12px;color:var(--ink);background:var(--paper)}
+.chip-t .x{color:var(--ink-mute);cursor:pointer}
+.chip-t.add{cursor:pointer;color:var(--ink-mute);border-style:dashed;background:transparent}
+.chip-t.c-sun{background:var(--marigold);color:var(--on-color);border-color:var(--spruce)}
+.chip-t.c-sky{background:var(--sky);color:var(--on-color);border-color:var(--spruce)}
+.chip-t.c-sun .x,.chip-t.c-sky .x{color:color-mix(in srgb,var(--on-color) 60%,transparent)}
+/* search-snippet preview */
+.serp{border:2px solid var(--ink);border-radius:14px;padding:13px 14px;background:var(--paper)}
+.serp .u{font-family:var(--mono);font-size:11.5px;color:color-mix(in srgb,var(--moss) 80%,var(--ink))}
+.serp .t{font-family:var(--display);font-size:15.5px;font-weight:640;color:var(--accent-ink);margin:3px 0 4px;line-height:1.25}
+.serp .d{font-size:12.5px;color:var(--ink-soft);line-height:1.4}
+
+/* ---- offline / load fallback ---- */
+.tt-note{display:none;margin:14px 0;padding:11px 14px;border:2px dashed var(--line-2);border-radius:12px;
+  background:var(--paper-2);color:var(--ink-soft);font-size:13px}
+.tt-note.show{display:block}
+
+/* ---- mobile ---- */
+.menu-btn{display:none}
+@media (max-width:1180px){
+  .body{grid-template-columns:256px minmax(0,1fr)}
+  .rail{grid-column:1/-1;border-left:0;border-top:2px solid var(--ink)}
+}
+@media (max-width:820px){
+  .body{grid-template-columns:1fr}
+  .menu-btn{display:grid}
+  .sidebar{position:fixed;z-index:40;top:62px;bottom:0;left:0;width:268px;transform:translateX(-100%);
+    transition:transform .3s var(--ease);box-shadow:var(--shadow)}
+  .sidebar.open{transform:none}
+  .doc-meta{display:none}
+  .doc-canvas{padding:28px 20px 100px}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- ===== TOP BAR ===== -->
+  <header class="topbar">
+    <button class="tb-ic menu-btn" id="menuBtn" aria-label="Menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+    <a class="tb-brand" href="index.html"><span class="tb-tile"><img src="assets/art/pf-icon.png" alt=""></span><span>Pulford <span class="sub">Studio</span></span></a>
+    <span class="crumb"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m9 18 6-6-6-6"/></svg> News &amp; Stories <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m9 18 6-6-6-6"/></svg> <span style="color:var(--fg)">Editing</span></span>
+    <span class="tb-spacer"></span>
+    <span class="save" id="save"><span class="dot"></span><span class="txt">Saved · just now</span></span>
+    <button class="tb-ic theme-toggle" aria-label="Toggle theme" title="Light / dark">
+      <svg class="sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M19.4 4.6l-1.8 1.8M6.4 17.6l-1.8 1.8"/></svg>
+      <svg class="moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.3 6.3 0 0 0 10.5 10.5z"/></svg>
+    </button>
+    <button class="btn-ui" id="previewBtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="2.6"/></svg> Preview</button>
+    <button class="btn-ui btn-pub" id="pubBtn"><svg class="door-ico" viewBox="0 0 24 24" aria-hidden="true"><path class="light" d="M6.5 21 V11.1 a5.5 5.5 0 0 1 11 0 V21 Z"/><path class="frame" d="M3.5 21 H20.5 M5.5 21 V11 a6.5 6.5 0 0 1 13 0 V21"/><g class="leaf"><path class="slab" fill-rule="evenodd" d="M6.5 21 V11.1 a5.5 5.5 0 0 1 11 0 V21 Z M8.5 11.5 h5.6 v3.5 h-5.6 Z M8.5 16.5 h5.6 v2.6 h-5.6 Z"/><circle class="knob" cx="15.9" cy="13.6" r="1"/></g></svg>Publish</button>
+    <span class="avatar" title="Renée Sauvé">RS</span>
+  </header>
+
+  <div class="body">
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar" id="sidebar">
+      <div class="side-search"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg> Search content <kbd>/</kbd></div>
+
+      <div class="side-group">Content</div>
+      <div class="side-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg> Pages <span class="count">9</span></div>
+      <div class="side-link active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 5h16M4 5v14a1 1 0 0 0 1 1h11l4-4V5"/><path d="M8 10h8M8 14h5"/></svg> News &amp; Stories <span class="count">23</span></div>
+      <div class="side-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg> Services <span class="count">4</span></div>
+      <div class="side-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0"/><path d="M16 6.5a3 3 0 0 1 0 5.6M16.5 20a5.5 5.5 0 0 0-3-4.9"/></svg> Team &amp; Board <span class="count">14</span></div>
+      <div class="side-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg> Events <span class="count">6</span></div>
+      <div class="side-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8a3 3 0 0 1 6 0"/></svg> Social Enterprise <span class="count">3</span></div>
+      <a class="side-link" href="rentals.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M8 14h3M13 14h3"/></svg> Rentals &amp; Bookings <span class="count">14</span></a>
+
+      <div class="side-group">Library</div>
+      <div class="side-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m4 18 5-4 4 3 3-2 4 3"/></svg> Media <span class="count">312</span></div>
+      <div class="side-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h4"/></svg> Form submissions <span class="count">7</span></div>
+
+      <div class="side-group">Site</div>
+      <div class="side-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 6h16M4 12h16M4 18h16"/></svg> Navigation</div>
+      <div class="side-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l2-1.5-2-3.5-2.3 1a7 7 0 0 0-1.7-1l-.3-2.5h-4l-.3 2.5a7 7 0 0 0-1.7 1l-2.3-1-2 3.5L4.1 11a7 7 0 0 0 0 2l-2 1.5 2 3.5 2.3-1a7 7 0 0 0 1.7 1l.3 2.5h4l.3-2.5a7 7 0 0 0 1.7-1l2.3 1 2-3.5-2-1.5a7 7 0 0 0 .1-1Z"/></svg> Settings</div>
+    </aside>
+
+    <!-- ===== EDITOR ===== -->
+    <main class="editor-col">
+      <div class="doc-bar">
+        <span class="pill" id="statusPill"><span class="dot"></span> Draft</span>
+        <div class="doc-meta">
+          <span><span class="num" id="words">0</span> words</span>
+          <span><span class="num">3</span> min read</span>
+          <span>Edited by Renée Sauvé</span>
+        </div>
+      </div>
+
+      <div class="doc-canvas">
+        <textarea class="title-input" id="title" rows="2" placeholder="Untitled story">Pairings with Pulford 2026: a record-breaking night</textarea>
+        <div class="slug-row"><span class="base">pulford.ca/news/</span><input id="slug" value="pairings-with-pulford-2026" aria-label="URL slug"></div>
+
+        <!-- TipTap toolbar -->
+        <div class="tt-toolbar" id="toolbar" role="toolbar" aria-label="Formatting">
+          <button class="tt-btn" data-a="undo" title="Undo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 7 4 12l5 5"/><path d="M4 12h11a5 5 0 0 1 0 10h-1"/></svg></button>
+          <button class="tt-btn" data-a="redo" title="Redo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m15 7 5 5-5 5"/><path d="M20 12H9a5 5 0 0 0 0 10h1"/></svg></button>
+          <span class="sep"></span>
+          <button class="tt-btn" data-a="h2" title="Heading">H<span class="lvl">2</span></button>
+          <button class="tt-btn" data-a="h3" title="Subheading">H<span class="lvl">3</span></button>
+          <span class="sep"></span>
+          <button class="tt-btn" data-a="bold" title="Bold (Ctrl+B)">B</button>
+          <button class="tt-btn" data-a="italic" title="Italic (Ctrl+I)">I</button>
+          <button class="tt-btn" data-a="strike" title="Strikethrough"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 12h14"/><path d="M8 7a3.5 3.5 0 0 1 6 1M9 16a3.5 3.5 0 0 0 6-1.5"/></svg></button>
+          <span class="sep"></span>
+          <button class="tt-btn" data-a="bullet" title="Bulleted list"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1.1" fill="currentColor" stroke="none"/><circle cx="4.5" cy="12" r="1.1" fill="currentColor" stroke="none"/><circle cx="4.5" cy="18" r="1.1" fill="currentColor" stroke="none"/></svg></button>
+          <button class="tt-btn" data-a="ordered" title="Numbered list"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M10 6h10M10 12h10M10 18h10"/><path d="M4 4.5h1.4V9M3.6 15.2c.2-.7 1.6-.8 1.7.1.1.7-1.6 1.6-1.8 2.7H5.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button class="tt-btn" data-a="quote" title="Quote"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 7H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h2v3a3 3 0 0 1-2 1M20 7h-4a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h2v3a3 3 0 0 1-2 1"/></svg></button>
+          <button class="tt-btn" data-a="link" title="Add link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 13a4 4 0 0 0 6 .5l3-3a4 4 0 1 0-5.6-5.6l-1.6 1.6"/><path d="M15 11a4 4 0 0 0-6-.5l-3 3A4 4 0 1 0 11.6 19l1.5-1.5"/></svg></button>
+        </div>
+
+        <p class="tt-note" id="ttNote">Loading the editor… if it doesn't become editable, this page needs an internet connection (TipTap loads from a CDN in this concept build). The formatted draft below still shows exactly how content renders.</p>
+
+        <!-- The article. TipTap takes this over; if the CDN is unreachable it stays here as a styled, read-only fallback. -->
+        <div id="editor">
+          <p>After two years of quiet rebuilding, <strong>Pairings with Pulford</strong> returned to the Fort Garry Hotel on a snow-bright Saturday — and turned into the most successful fundraising evening in the organization's history.</p>
+          <p>Two hundred and forty guests filled the ballroom for an evening of food, music and storytelling, raising funds that will go directly into homes, day programs and family supports across Winnipeg, the Interlake and Eastman.</p>
+          <h2>An evening built by the whole community</h2>
+          <p>The night came together through dozens of local partners — restaurants, vintners, musicians and volunteers who gave their time so that every dollar raised could go where it matters most. As board chair Marguerite Delorme put it from the stage:</p>
+          <blockquote>We don't measure a night like this in tickets sold. We measure it in the doors it opens — a first apartment, a steady job, a Tuesday that finally belongs to the person living it.</blockquote>
+          <p>Highlights from the evening included:</p>
+          <ul>
+            <li>A live raffle that drew the largest single-night response on record</li>
+            <li>Twelve tasting stations hosted by Manitoba chefs and producers</li>
+            <li>A short film featuring three people supported by Pulford, in their own words</li>
+          </ul>
+          <img src="assets/photos/group.jpg" alt="Guests and Pulford community members gathered together at the event">
+          <p class="cap">Community members and supporters gather at Pairings with Pulford 2026.</p>
+          <h3>Where the funds go next</h3>
+          <p>Proceeds are already being directed toward expanding supported independent living placements and a new respite stream for families. For partnership or sponsorship enquiries, <a href="contact.html">reach out to our team</a> — there's a place for everyone at the next table.</p>
+        </div>
+      </div>
+    </main>
+
+    <!-- ===== RIGHT RAIL ===== -->
+    <aside class="rail">
+      <h4>Status</h4>
+      <div class="seg" id="seg">
+        <button data-s="Draft" class="on">Draft</button>
+        <button data-s="In review">In review</button>
+        <button data-s="Scheduled">Scheduled</button>
+        <button data-s="Published">Published</button>
+      </div>
+      <div class="fld" style="margin-top:14px">
+        <label for="pubdate">Publish date</label>
+        <input type="date" id="pubdate" value="2026-02-14">
+      </div>
+      <div class="fld">
+        <label for="author">Author</label>
+        <select id="author"><option>Renée Sauvé</option><option>Marguerite Delorme</option><option>Communications team</option></select>
+      </div>
+
+      <h4>Featured image</h4>
+      <div class="thumb"><img src="assets/photos/group.jpg" alt="Featured image preview"><span class="swap">Replace</span></div>
+
+      <h4>Categories</h4>
+      <div class="chips">
+        <span class="chip-t c-sun">Events <span class="x">×</span></span>
+        <span class="chip-t c-sky">Fundraising <span class="x">×</span></span>
+        <span class="chip-t add">+ Add</span>
+      </div>
+
+      <h4>Search appearance</h4>
+      <div class="serp">
+        <div class="u">pulford.ca › news › pairings-with-pulford-2026</div>
+        <div class="t" id="serpTitle">Pairings with Pulford 2026: a record-breaking night</div>
+        <div class="d" id="serpDesc">Two hundred and forty guests, twelve Manitoba chefs, one record night — how Pairings with Pulford 2026 will open more doors across the province.</div>
+      </div>
+      <div class="fld" style="margin-top:14px">
+        <label for="meta">Meta description</label>
+        <textarea id="meta" maxlength="170">Two hundred and forty guests, twelve Manitoba chefs, one record night — how Pairings with Pulford 2026 will open more doors across the province.</textarea>
+        <div class="help"><span>Aim for 150–160</span><span><span class="num" id="metaCount">0</span>/160</span></div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<script src="assets/app.js"></script>
+<script type="module">
+  import { Editor } from '@tiptap/core'
+  import StarterKit from '@tiptap/starter-kit'
+  import Link from '@tiptap/extension-link'
+  import Image from '@tiptap/extension-image'
+  import Placeholder from '@tiptap/extension-placeholder'
+
+  const el = document.querySelector('#editor')
+  const initial = el.innerHTML
+  const note = document.querySelector('#ttNote')
+  const failTimer = setTimeout(()=>note.classList.add('show'), 4000) // reveal hint if the CDN stalls
+
+  const editor = new Editor({
+    element: el,
+    extensions: [
+      StarterKit.configure({ heading: { levels: [2, 3] } }),
+      Link.configure({ openOnClick: false, autolink: true, HTMLAttributes: { rel: 'noopener' } }),
+      Image,
+      Placeholder.configure({ placeholder: 'Tell the story…' }),
+    ],
+    content: initial,
+    autofocus: false,
+  })
+  clearTimeout(failTimer)
+  note.classList.remove('show')
+
+  /* ---- toolbar wiring ---- */
+  const tb = document.querySelector('#toolbar')
+  const run = {
+    undo:    () => editor.chain().focus().undo().run(),
+    redo:    () => editor.chain().focus().redo().run(),
+    h2:      () => editor.chain().focus().toggleHeading({ level: 2 }).run(),
+    h3:      () => editor.chain().focus().toggleHeading({ level: 3 }).run(),
+    bold:    () => editor.chain().focus().toggleBold().run(),
+    italic:  () => editor.chain().focus().toggleItalic().run(),
+    strike:  () => editor.chain().focus().toggleStrike().run(),
+    bullet:  () => editor.chain().focus().toggleBulletList().run(),
+    ordered: () => editor.chain().focus().toggleOrderedList().run(),
+    quote:   () => editor.chain().focus().toggleBlockquote().run(),
+    link:    () => {
+      const prev = editor.getAttributes('link').href || ''
+      const url = window.prompt('Link URL', prev)
+      if (url === null) return
+      if (url === '') { editor.chain().focus().unsetLink().run(); return }
+      editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run()
+    },
+  }
+  tb.addEventListener('click', (e) => {
+    const b = e.target.closest('.tt-btn'); if (!b) return
+    run[b.dataset.a]?.()
+  })
+  const active = {
+    h2: ['heading', { level: 2 }], h3: ['heading', { level: 3 }],
+    bold: ['bold'], italic: ['italic'], strike: ['strike'],
+    bullet: ['bulletList'], ordered: ['orderedList'], quote: ['blockquote'], link: ['link'],
+  }
+  const refresh = () => {
+    tb.querySelectorAll('.tt-btn').forEach(b => {
+      const a = active[b.dataset.a]
+      if (a) b.classList.toggle('is-active', editor.isActive(...a))
+    })
+  }
+  editor.on('selectionUpdate', refresh)
+  editor.on('transaction', refresh)
+
+  /* ---- live counters + autosave simulation ---- */
+  const wordsEl = document.querySelector('#words')
+  const save = document.querySelector('#save')
+  const saveTxt = save.querySelector('.txt')
+  let t
+  const countWords = () => {
+    const n = editor.getText().trim().split(/\s+/).filter(Boolean).length
+    wordsEl.textContent = n
+  }
+  const markSaving = () => {
+    save.classList.add('dirty'); saveTxt.textContent = 'Unsaved changes…'
+    clearTimeout(t); t = setTimeout(() => { save.classList.remove('dirty'); saveTxt.textContent = 'Saved · just now' }, 1300)
+  }
+  editor.on('update', () => { countWords(); markSaving() })
+  countWords(); refresh()
+
+  /* ---- title / slug / meta / status (chrome interactions) ---- */
+  const title = document.querySelector('#title')
+  const auto = (t2) => { t2.style.height = 'auto'; t2.style.height = t2.scrollHeight + 'px' }
+  auto(title)
+  title.addEventListener('input', () => {
+    auto(title); document.querySelector('#serpTitle').textContent = title.value || 'Untitled story'
+    document.querySelector('#slug').value = title.value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 60)
+    markSaving()
+  })
+
+  const meta = document.querySelector('#meta'), metaCount = document.querySelector('#metaCount')
+  const syncMeta = () => { metaCount.textContent = meta.value.length; document.querySelector('#serpDesc').textContent = meta.value; }
+  meta.addEventListener('input', () => { syncMeta(); markSaving() }); syncMeta()
+
+  const pill = document.querySelector('#statusPill')
+  document.querySelector('#seg').addEventListener('click', (e) => {
+    const b = e.target.closest('button'); if (!b) return
+    document.querySelectorAll('#seg button').forEach(x => x.classList.remove('on'))
+    b.classList.add('on'); pill.lastChild.textContent = ' ' + b.dataset.s; markSaving()
+  })
+
+  document.querySelector('#pubBtn').addEventListener('click', () => {
+    saveTxt.textContent = 'Published · live in ~30s'; save.classList.remove('dirty')
+  })
+  document.querySelector('#previewBtn').addEventListener('click', () => window.open('index.html', '_blank'))
+
+  /* ---- mobile sidebar ---- */
+  document.querySelector('#menuBtn')?.addEventListener('click', () => document.querySelector('#sidebar').classList.toggle('open'))
+</script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 244 256" fill="none" style="color:#22372E">
+  <!-- Pulford mark, remastered faithfully from the original kid-icon:
+       a child seen from behind, standing at open doors, looking out
+       onto a village of houses, trees and field rows. -->
+  <defs>
+    <radialGradient id="pfm-glow" cx="50%" cy="42%" r="64%">
+      <stop offset="0%" stop-color="var(--mg, #F2A93B)" stop-opacity=".75"/>
+      <stop offset="55%" stop-color="var(--mg, #F2A93B)" stop-opacity=".28"/>
+      <stop offset="100%" stop-color="var(--mg, #F2A93B)" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="pfm-open"><rect x="52" y="30" width="140" height="226"/></clipPath>
+  </defs>
+
+  <g clip-path="url(#pfm-open)">
+    <rect x="52" y="30" width="140" height="226" fill="url(#pfm-glow)"/>
+    <!-- the village -->
+    <g stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+      <!-- first row sits on this line -->
+      <path d="M54 132 H190"/>
+      <!-- big house, right -->
+      <path d="M120 132 V88 H184 V132"/>
+      <path d="M113 89 L146 60 L179 89"/>
+      <path d="M130 132 V106 H146 V132"/>
+      <path d="M156 100 h18 v18 h-18 Z M165 100 v18 M156 109 h18"/>
+      <!-- trees, left -->
+      <circle cx="90" cy="76" r="17"/><path d="M90 93 V132"/>
+      <circle cx="62" cy="98" r="10"/><path d="M62 108 V132"/>
+      <circle cx="113" cy="70" r="4.5"/><circle cx="119" cy="92" r="3"/>
+      <!-- second row -->
+      <path d="M54 184 H190"/>
+      <path d="M56 184 V152 H102 V184"/>
+      <path d="M50 153 L79 128 L108 153"/>
+      <path d="M68 184 V162 H82 V184"/>
+      <circle cx="166" cy="154" r="13"/><path d="M166 167 V184"/>
+      <!-- field rows running to the door -->
+      <path d="M54 206 H190 M54 228 H190 M54 248 H190"/>
+    </g>
+    <!-- the kid, from behind -->
+    <g fill="currentColor">
+      <circle cx="122" cy="151" r="28"/>
+      <rect x="109" y="170" width="26" height="20"/>
+      <path d="M74 256 C74 214 95 194 122 194 C149 194 170 214 170 256 Z"/>
+    </g>
+  </g>
+
+  <!-- door frame -->
+  <path d="M48 256 V26 H196 V256" stroke="currentColor" stroke-width="9" stroke-linejoin="round"/>
+  <!-- light spilling past the open transom -->
+  <g stroke="currentColor" stroke-width="9" stroke-linecap="round">
+    <path d="M44 22 L16 2"/><path d="M200 22 L228 2"/>
+  </g>
+
+  <!-- the open leaves, swung toward us -->
+  <g stroke="currentColor" stroke-width="7" stroke-linejoin="round">
+    <path d="M50 190 L12 222 V256 H50 Z" fill="var(--pf-leaf, #FAF3E4)"/>
+    <path d="M194 190 L232 222 V256 H194 Z" fill="var(--pf-leaf, #FAF3E4)"/>
+  </g>
+  <ellipse cx="23" cy="238" rx="5" ry="7" fill="currentColor"/>
+  <ellipse cx="221" cy="238" rx="5" ry="7" fill="currentColor"/>
+</svg>
