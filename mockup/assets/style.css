@@ -338,17 +338,22 @@ html[data-theme="dark"] .theme-toggle .moon{display:block}
 .cta p{color:rgba(250,243,228,.88);margin-top:14px;max-width:48ch}
 .cta .chip{background:var(--cream);color:var(--spruce);border-color:var(--spruce)}
 /* the stage: doorway behind, actions standing in the light */
-.cta-stage{position:relative;justify-self:center;width:min(100%,400px)}
+.cta-stage{position:relative;justify-self:center;width:min(100%,400px);display:flex;flex-direction:column;align-items:center;gap:18px}
 .cta-doors{width:100%;aspect-ratio:260/296;position:relative;z-index:2;transform-origin:50% 90%;
   color:#3A2417;--leaf:#E7B493;--mg:#F2A93B;pointer-events:none;animation:ctaKnock 5s var(--ease) infinite}
 .cta:hover .cta-doors,.cta:focus-within .cta-doors{animation:none}
 .cta-doors svg{width:100%;height:100%;display:block}
 .cta-actions{display:flex;gap:14px;flex-wrap:wrap;justify-content:flex-end;position:relative;z-index:1}
-.cta-stage .cta-actions{position:absolute;inset:10% 0 6%;flex-direction:column;flex-wrap:nowrap;gap:16px;
-  align-items:center;justify-content:center;z-index:3}
+/* touch / no-hover default: doorway is a decorative poster; buttons sit below it, full-width and tappable */
+.cta-stage .cta-actions{width:100%;flex-direction:column;flex-wrap:nowrap;gap:12px;align-items:stretch;z-index:3}
+.cta-stage .cta-actions .btn{width:100%;justify-content:center}
 @media (hover:hover) and (pointer:fine){
-  .cta-stage .cta-actions{z-index:0;opacity:0;transform:translateY(12px) scale(.95);
+  /* desktop: buttons stand inside the lit doorway, hidden until the doors swing open on hover */
+  .cta-stage{display:block}
+  .cta-stage .cta-actions{position:absolute;inset:10% 0 6%;align-items:center;justify-content:center;
+    z-index:0;opacity:0;transform:translateY(12px) scale(.95);
     transition:opacity .5s var(--ease),transform .5s var(--ease)}
+  .cta-stage .cta-actions .btn{width:auto}
   .cta:hover .cta-stage .cta-actions,.cta:focus-within .cta-stage .cta-actions{opacity:1;transform:none;z-index:3;transition-delay:.3s}
 }
 .cta .btn{border-color:var(--spruce);color:var(--spruce)}
