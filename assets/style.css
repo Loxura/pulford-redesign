@@ -23,7 +23,8 @@
   --marigold:#F2A93B;       /* morning sun */
   --sky:#A7CCE8;            /* prairie sky */
   --clay:#DC6B3F;           /* brick & garden clay */
-  --moss:#7FA46C;           /* yard green */
+  --clay-deep:#A8431F;      /* clay dark enough for AA body text */
+  --moss:#8FB47C;           /* yard green — lightened for AA body text on moss cards */
 
   /* constants — never theme-swapped */
   --spruce:#22372E;
@@ -54,7 +55,8 @@ html[data-theme="dark"]{
   --marigold:#E8A23B;
   --sky:#8FB8DA;
   --clay:#D2693F;
-  --moss:#769C64;
+  --clay-deep:#9E3F1E;
+  --moss:#8FB47C;
 
   --inv-bg:#F1E9D6;
   --inv-fg:#16241D;
@@ -259,14 +261,14 @@ html[data-theme="dark"] .theme-toggle .moon{display:block}
 .door-card .door-ico{width:40px;height:40px}
 .door-card .num{font-family:var(--display);font-weight:700;font-size:15px;opacity:.7}
 .door-card h3{font-size:clamp(20px,1.8vw,24px);line-height:1.08;margin-top:auto}
-.door-card p{font-size:15px;line-height:1.5;color:color-mix(in srgb,var(--on-color) 78%,transparent)}
+.door-card p{font-size:15px;line-height:1.5;color:color-mix(in srgb,var(--on-color) 92%,transparent)}
 .door-card .go{font-family:var(--display);font-weight:640;font-size:15px;display:inline-flex;gap:8px;
   margin-top:6px;transition:gap .2s var(--ease)}
 .door-card:hover .go{gap:14px}
 .door-card.d-sky{background:var(--sky)}
 .door-card.d-sun{background:var(--marigold)}
-.door-card.d-clay{background:var(--clay);color:var(--cream)}
-.door-card.d-clay p{color:rgba(250,243,228,.85)}
+.door-card.d-clay{background:var(--clay-deep);color:var(--cream)}
+.door-card.d-clay p{color:rgba(250,243,228,.92)}
 /* on clay the card text is cream, so pin the icon's ink to spruce —
    otherwise frame, slab, light and knob all go cream and the door vanishes */
 .door-card.d-clay .door-ico{color:var(--spruce)}
@@ -310,7 +312,7 @@ html[data-theme="dark"] .theme-toggle .moon{display:block}
 .stat:last-child{border-right:0}
 .stat .n{font-family:var(--display);font-weight:700;font-size:clamp(40px,4.8vw,66px);
   letter-spacing:-.03em;line-height:1}
-.stat .l{font-size:15px;font-weight:520;margin-top:8px;color:rgba(34,55,46,.78)}
+.stat .l{font-size:15px;font-weight:520;margin-top:8px;color:rgba(34,55,46,.92)}
 
 /* ---- gallery mosaic ---- */
 .gallery-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:30px}
@@ -330,7 +332,7 @@ html[data-theme="dark"] .theme-toggle .moon{display:block}
 
 /* ---- big CTA poster — the giant doors back the buttons and swing open ---- */
 .cta{position:relative;overflow:hidden;border:2px solid var(--ink);border-radius:var(--r-card);
-  background:var(--clay);color:var(--cream);padding:clamp(40px,6vh,76px) clamp(28px,5vw,72px);
+  background:var(--clay-deep);color:var(--cream);padding:clamp(40px,6vh,76px) clamp(28px,5vw,72px);
   display:grid;grid-template-columns:1.25fr 1fr;gap:clamp(28px,4vw,56px);align-items:center}
 .cta h2{font-size:clamp(30px,4vw,54px);letter-spacing:-.025em;max-width:17ch;color:#FFFCF2}
 .cta p{color:rgba(250,243,228,.88);margin-top:14px;max-width:48ch}
@@ -538,10 +540,10 @@ html[data-theme="dark"] .theme-toggle .moon{display:block}
 .promo-tile svg{width:58%;height:auto}
 .promo-copy{display:flex;flex-direction:column;gap:3px;margin-right:auto}
 .promo-kicker{font-family:var(--display);font-weight:640;font-size:12.5px;
-  letter-spacing:.14em;text-transform:uppercase;color:rgba(34,55,46,.7)}
+  letter-spacing:.14em;text-transform:uppercase;color:rgba(34,55,46,.92)}
 .promo-copy strong{font-family:var(--display);font-weight:700;line-height:1.08;
   letter-spacing:-.02em;font-size:clamp(19px,1.9vw,26px)}
-.promo-sub{font-size:14.5px;color:rgba(34,55,46,.75)}
+.promo-sub{font-size:14.5px;color:rgba(34,55,46,.92)}
 .promo-go{flex:none}
 .promo:hover .promo-go{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--marigold)}
 .promo:hover .promo-go .ar{transform:translateX(4px)}
@@ -595,7 +597,7 @@ html[data-theme="dark"] .theme-toggle .moon{display:block}
 .room-card .chip,.room-card h3,.room-card p,.room-card .go{margin-left:12px;margin-right:12px}
 .room-card .chip{align-self:flex-start;border-color:var(--spruce);color:var(--spruce);background:var(--cream)}
 .room-card h3{font-size:clamp(21px,1.9vw,26px)}
-.room-card p{font-size:15px;line-height:1.5;color:color-mix(in srgb,var(--on-color) 80%,transparent)}
+.room-card p{font-size:15px;line-height:1.5;color:color-mix(in srgb,var(--on-color) 92%,transparent)}
 .room-card .go{font-family:var(--display);font-weight:640;font-size:15px;display:inline-flex;gap:8px;
   margin-top:4px;transition:gap .2s var(--ease)}
 .room-card:hover .go{gap:14px}
