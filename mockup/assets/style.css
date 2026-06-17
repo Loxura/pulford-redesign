@@ -344,18 +344,10 @@ html[data-theme="dark"] .theme-toggle .moon{display:block}
 .cta:hover .cta-doors,.cta:focus-within .cta-doors{animation:none}
 .cta-doors svg{width:100%;height:100%;display:block}
 .cta-actions{display:flex;gap:14px;flex-wrap:wrap;justify-content:flex-end;position:relative;z-index:1}
-/* touch / no-hover default: doorway is a decorative poster; buttons sit below it, full-width and tappable */
+/* the doorway is a decorative poster on every device; buttons sit below it, always visible and tappable.
+   the doors still knock and swing open on hover (purely decorative) — but the CTA never depends on hover */
 .cta-stage .cta-actions{width:100%;flex-direction:column;flex-wrap:nowrap;gap:12px;align-items:stretch;z-index:3}
 .cta-stage .cta-actions .btn{width:100%;justify-content:center}
-@media (hover:hover) and (pointer:fine){
-  /* desktop: buttons stand inside the lit doorway, hidden until the doors swing open on hover */
-  .cta-stage{display:block}
-  .cta-stage .cta-actions{position:absolute;inset:10% 0 6%;align-items:center;justify-content:center;
-    z-index:0;opacity:0;transform:translateY(12px) scale(.95);
-    transition:opacity .5s var(--ease),transform .5s var(--ease)}
-  .cta-stage .cta-actions .btn{width:auto}
-  .cta:hover .cta-stage .cta-actions,.cta:focus-within .cta-stage .cta-actions{opacity:1;transform:none;z-index:3;transition-delay:.3s}
-}
 .cta .btn{border-color:var(--spruce);color:var(--spruce)}
 .cta .btn:not(.btn-sun){background:var(--cream);box-shadow:4px 4px 0 var(--spruce)}
 .cta .btn:not(.btn-sun):hover{box-shadow:6px 6px 0 var(--spruce)}
@@ -404,7 +396,7 @@ html[data-theme="dark"] .theme-toggle .moon{display:block}
 
 /* ---- people (board) ---- */
 .people{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.6vw,20px);margin-top:38px}
-.person{border:2px solid var(--ink);border-radius:var(--r-card);background:var(--paper-2);
+.person{border:2px solid var(--ink);border-radius:var(--r-card);background:var(--paper-2);color:var(--ink);
   padding:24px;display:flex;align-items:center;gap:18px;
   transition:transform .22s var(--ease),box-shadow .22s var(--ease)}
 .person:hover{transform:translateY(-4px);box-shadow:var(--pop-sm)}
