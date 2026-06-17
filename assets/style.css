@@ -816,7 +816,7 @@ html[data-theme="dark"] .foot-col a:hover{color:#B26A1B}
 .pdp-price .pp .v{font-family:var(--display);font-weight:700;font-size:clamp(26px,2.6vw,34px);
   letter-spacing:-.02em;margin-top:2px}
 .pdp-price .pp.sun{background:var(--marigold);color:var(--on-color);border-color:var(--spruce)}
-.pdp-price .pp.sun .k{color:rgba(34,55,46,.7)}
+.pdp-price .pp.sun .k{color:rgba(34,55,46,.92)}
 .pdp-buy .add-btn{width:100%;font-size:16.5px;padding:15px 22px}
 .pdp-note{font-size:14px;color:var(--ink-mute);margin-top:14px;line-height:1.55}
 .pdp-note a{border-bottom:2px solid var(--marigold)}
