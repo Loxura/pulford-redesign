@@ -343,9 +343,12 @@ html[data-theme="dark"] .theme-toggle .moon{display:block}
 .cta-doors svg{width:100%;height:100%;display:block}
 .cta-actions{display:flex;gap:14px;flex-wrap:wrap;justify-content:flex-end;position:relative;z-index:1}
 .cta-stage .cta-actions{position:absolute;inset:10% 0 6%;flex-direction:column;flex-wrap:nowrap;gap:16px;
-  align-items:center;justify-content:center;z-index:0;opacity:0;transform:translateY(12px) scale(.95);
-  transition:opacity .5s var(--ease),transform .5s var(--ease)}
-.cta:hover .cta-stage .cta-actions,.cta:focus-within .cta-stage .cta-actions{opacity:1;transform:none;z-index:3;transition-delay:.3s}
+  align-items:center;justify-content:center;z-index:3}
+@media (hover:hover) and (pointer:fine){
+  .cta-stage .cta-actions{z-index:0;opacity:0;transform:translateY(12px) scale(.95);
+    transition:opacity .5s var(--ease),transform .5s var(--ease)}
+  .cta:hover .cta-stage .cta-actions,.cta:focus-within .cta-stage .cta-actions{opacity:1;transform:none;z-index:3;transition-delay:.3s}
+}
 .cta .btn{border-color:var(--spruce);color:var(--spruce)}
 .cta .btn:not(.btn-sun){background:var(--cream);box-shadow:4px 4px 0 var(--spruce)}
 .cta .btn:not(.btn-sun):hover{box-shadow:6px 6px 0 var(--spruce)}
@@ -869,5 +872,5 @@ html[data-theme="dark"] .foot-col a:hover{color:#B26A1B}
   .door-ico .leaf{transform:none!important}
   .cta-doors .leaf-l,.cta-doors .leaf-r{transform:none}
   .cta-doors{z-index:0}
-  .cta-stage .cta-actions{opacity:1;transform:none;z-index:1}
+  .cta-stage .cta-actions{opacity:1;transform:none;z-index:3}
 }
