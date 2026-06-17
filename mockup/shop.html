@@ -458,11 +458,10 @@
   function reflectAvailability(){
     document.querySelectorAll('.add-btn').forEach(b=>{
       const id=b.dataset.game, card=b.closest('.game-card');
-      const tile=card?card.querySelector('.game-tile'):null;
       const off=!PF.isListed(id);
-      if(tile){
-        let badge=tile.querySelector('.avail-badge');
-        if(!badge){badge=document.createElement('span');badge.className='avail-badge';badge.textContent='Unavailable';tile.insertBefore(badge,tile.firstChild);}
+      if(card){
+        let badge=card.querySelector('.avail-badge');
+        if(!badge){badge=document.createElement('span');badge.className='avail-badge';badge.textContent='Unavailable';card.insertBefore(badge,card.firstChild);}
         badge.hidden=!off;
       }
       if(card) card.classList.toggle('is-off',off);
